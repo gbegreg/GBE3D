@@ -26,7 +26,7 @@ Le projet est fourni avec un projet de démonstration pour chaque composant. A l
 <img src="https://github.com/gbegreg/GBE3D/blob/master/viewport3D.png">
 
 3) Aide en ligne<br>
-A venir prochainement...
+Voir le wiki : https://github.com/gbegreg/GBE3D/wiki (en cours de rédaction)
 
 4) Remerciements<br>
 Si cette suite de composants vous plait, merci de laisser une petite étoile ;)
