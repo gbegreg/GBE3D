@@ -7,11 +7,11 @@ pour toutes les plateformes cibles de Delphi (Windows, Mac OS, Linux, Android et
 Développé et testé à partir de la version Rio de Delphi (10.3.3).
 
 
-1) Installation
+1) Installation<br>
 Une fois le projet cloné, lancer Delphi, ouvrir le projet GBE3D.dproj, compiler le et installer le.
 Vous devrez également ajouter le chemin où vous avez téléchargé le projet dans les chemins des bibliothèques (menu Outils / Options puis rubrique Langage / Delphi / Bibliothèques).
 
-2) Démonstrations
+2) Démonstrations<br>
 Le projet est fourni avec un projet de démonstration pour chaque composant. A l'heure actuelle, vous trouverez :
 - la démo du TGBECubemap :
 <img src="https://github.com/gbegreg/GBE3D/blob/master/cubemap.png">
@@ -25,10 +25,10 @@ Le projet est fourni avec un projet de démonstration pour chaque composant. A l
 - la démo du TGBEViewport3D :
 <img src="https://github.com/gbegreg/GBE3D/blob/master/viewport3D.png">
 
-3) Aide en ligne
+3) Aide en ligne<br>
 A venir prochainement...
 
-4) Remerciements
+4) Remerciements<br>
 Si cette suite de composants vous plait, merci de laisser une petite étoile ;)
 
 Grégory Bersegeay http://www.gbesoft.fr 
