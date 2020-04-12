@@ -17,3 +17,4 @@ Quelques captures d'écran :<br>
 <img src="https://github.com/gbegreg/GBE3D/blob/master/grass.png"><br>
 <img src="https://github.com/gbegreg/GBE3D/blob/master/heightmap.png"><br>
 <img src="https://github.com/gbegreg/GBE3D/blob/master/viewport3D.png"><br>
+<img src="https://github.com/gbegreg/GBE3D/blob/master/sphereExtend.png"><br>
