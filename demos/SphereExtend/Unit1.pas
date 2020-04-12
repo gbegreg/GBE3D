@@ -64,6 +64,7 @@ begin
   GBESphereExtend1.Depth := 9;
   GBESphereExtend1.Height := 8;
   GBESphereExtend1.Width := 9;
+  GBESphereExtend1.RotationAngle.X := 0;
   GBESphereExtend1.SubdivisionsAxes := 24;
   GBESphereExtend1.SubdivisionsHeight := 16;
   SpinBox1.Value := 24;
@@ -103,6 +104,10 @@ begin
        GBESphereExtend1.Height := 9;
        GBESphereExtend1.Width := 9;
        GBESphereExtend1.MaterialSource := LightMaterialSource3;
+     end;
+  6: begin
+       GBESphereExtend1.Forme := TForme.losange;
+       GBESphereExtend1.MaterialSource := LightMaterialSource4;
      end;
   end;
 
