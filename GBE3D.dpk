@@ -36,6 +36,7 @@ contains
   GBEHeightmap in 'GBEHeightmap.pas',
   GBEGrass in 'GBEGrass.pas',
   GBECubemap in 'GBECubemap.pas',
-  GBEViewport3D in 'GBEViewport3D.pas';
+  GBEViewport3D in 'GBEViewport3D.pas',
+  GBESphereExtend in 'GBESphereExtend.pas';
 
 end.
