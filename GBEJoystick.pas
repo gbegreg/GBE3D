@@ -1,0 +1,234 @@
+unit GBEJoystick;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FMX.Types, FMX.Controls, FMX.Layouts, GBEPlayerPosition, System.Math.Vectors, system.types,
+  FMX.Viewport3D, System.UITypes, FMX.Dialogs, FMX.Objects, FMX.Graphics, FMX.Ani;
+
+type
+  TGBEJoystickType = (jtOrientation, jtDeplacement);
+  TGBEJoystick = class(TLayout)
+  private
+    { Déclarations privées }
+    fPlayerPosition : TGBEPlayerPosition;
+    FPosDepartCurseur: TPointF;    // Position du pointeur de souris au début du mouvement de la souris
+    fViewport3D : TViewport3D;
+    fCircle, fCircle2 : TCircle;
+    fSensitivity: integer;
+    fShowIntegrateJoystick, useJoystick : boolean;
+    fPoint : TPoint3D;
+    fJoystickType : TGBEJoystickType;
+    Offset: TPointF;       // Décallage entre l'endroit du clic et le centre du cercle du joystick
+    fAcceleration : single;
+    procedure SetAngleDeVue(const Value: TPointF); // Modification de l'angle de vue
+    function GetDirection: TPoint3D;
+    procedure setShowIntegrateJoystick(const Value: boolean);
+    procedure setJoystickType(const Value : TGBEJoystickType);
+  protected
+    { Déclarations protégées }
+  public
+    { Déclarations publiques }
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Single); override;
+    procedure MouseUp(Button: TMouseButton; Shift: TShiftState; X, Y: Single); override;
+    procedure MouseMove(Shift: TShiftState; X, Y: Single);  override;
+    procedure DoMouseLeave; override;
+    procedure Resize; override;
+    procedure Paint; override;
+    procedure initialiserJoystick;
+  published
+    { Déclarations publiées }
+    property PlayerPosition : TGBEPlayerPosition read fPlayerPosition write fPlayerPosition;
+    property JoystickType : TGBEJoystickType read fJoystickType write setJoystickType;
+    property angleDeVue : TPointF write SetAngleDeVue; // Propriété de l'angle de vue
+    property direction : TPoint3D read GetDirection; // Propriété de la direction
+    property deplacement : TPoint3D read fPoint write fPoint;
+    property HitTest default true;
+    property Viewport3D : TViewport3D read fViewport3D write fViewport3D;
+    property ShowIntegrateJoystick : boolean read fShowIntegrateJoystick write setShowIntegrateJoystick;
+    property Acceleration : single read fAcceleration write fAcceleration;
+    property Sensitivity : integer read fSensitivity write fSensitivity;
+  end;
+
+procedure Register;
+
+implementation
+
+procedure Register;
+begin
+  RegisterComponents('GBE3D', [TGBEJoystick]);
+end;
+
+{ TGBEJoystick }
+
+constructor TGBEJoystick.Create(AOwner: TComponent);
+begin
+  inherited;
+  hitTest := true;
+  fCircle := TCircle.Create(nil);
+  fCircle.Parent := self;
+  fCircle.Stored := false;
+  fCircle.Locked := true;
+  fCircle.Fill.Kind := TBrushKind.Gradient;
+  fCircle.Fill.Gradient.Color := $FFB6B6B6;
+  fCircle.Fill.Gradient.Color1 := $FF888888;
+  fCircle.Fill.Gradient.Style := TGradientStyle.Linear;
+  fCircle.HitTest := false;
+
+  fCircle2 := TCircle.Create(nil);
+  fCircle2.Parent := fCircle;
+  fCircle2.Stored := false;
+  fCircle2.Locked := true;
+  fCircle2.Fill.Kind := TBrushKind.Gradient;
+  fCircle2.Fill.Gradient.Color := $FF888888;
+  fCircle2.Fill.Gradient.Color1 := $FFB6B6B6;
+  fCircle2.Fill.Gradient.Style := TGradientStyle.Linear;
+  fCircle.Stroke.Thickness := 2;
+  fCircle2.width := fCircle.Width -20;
+  fCircle2.height := fCircle.height - 20;
+  fCircle2.position.X := (fCircle.Width - fCircle2.Width)/2 ;
+  fCircle2.position.Y := (fCircle.Height - fCircle2.Height)/2;
+  fCircle2.HitTest := false;
+  fCircle2.Opacity := 0.7;
+
+  fShowIntegrateJoystick := true;
+  fSensitivity := 90;
+  fCircle.Align := TAlignLayout.Client;
+  fPoint := Point3D(1,0,1);
+  fAcceleration := 0;
+
+  useJoystick := false;
+  fJoystickType := TGBEJoystickType.jtDeplacement;
+end;
+
+function TGBEJoystick.GetDirection: TPoint3D;
+begin
+  if fJoystickType = jtDeplacement then
+  begin
+    if assigned(fPlayerPosition) then
+    begin
+      result := fPoint * (fPlayerPosition.getPositionDirection.AbsolutePosition - fPlayerPosition.AbsolutePosition).Normalize;
+    end
+    else result := fPoint;
+  end
+  else result := Point3D(0,0,0);
+end;
+
+procedure TGBEJoystick.initialiserJoystick;
+begin
+  TAnimator.AnimateFloat(fCircle2, 'Position.X', (fCircle.Width - fCircle2.Width)/2);
+  TAnimator.AnimateFloat(fCircle2, 'Position.Y', (fCircle.Height - fCircle2.Height)/2);
+  if fJoystickType = jtDeplacement then fAcceleration := 0;
+end;
+
+procedure TGBEJoystick.SetAngleDeVue(const Value: TPointF);
+var
+  ptA,ptD,S : TPointF; // ptA point d'arrivé, ptD point de départ, S la sensibilité
+begin
+  if assigned(fPlayerPosition) then
+  begin
+    if assigned(fViewport3D) then
+    begin
+      S.X := fSensitivity / self.Width; // Réglage de la sensibilité pour l'orientation droite/gauche
+      S.Y := fSensitivity / self.Height;// Réglage de la sensibilité pour l'orientation haut/bas
+      ptA := Value * S;            // Point d'arrivée adapté à la sensibilité
+      ptD := fPosDepartCurseur * S; // Point de départ adapté à la sensibilité
+      // Vue droite/gauche
+      with fPlayerPosition.RotationAngle do y := y + (ptA.X - ptD.X); // orientation droite/gauche (axe y) en fonction du déplacement de la souris en X
+      // Vue Haut/Bas
+      with fPlayerPosition.getDummyOrientation.RotationAngle do x:= x + (ptD.Y - ptA.Y); // de même pour l'orientation haut/bas en adaptant (rotation sur l'axe x, e fonction du d'déplacement de la souris en Y
+      fPosDepartCurseur := Value;   // la position du curseur lorsque l'utilisateur a cliqué (l'origine de la direction), est mis à jour avec la nouvelle position du curseur : au prochain appel de OnMouseMove, la position de départ doit être la position d'arrivée du coup précédent
+    end;
+  end;
+end;
+
+procedure TGBEJoystick.MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Single);
+begin
+  inherited;
+  if ssLeft in shift then
+  begin
+    fPosDepartCurseur := PointF(X,Y);
+    useJoystick := true;
+  end;
+  Offset.X := X;
+  Offset.Y := Y;
+end;
+
+procedure TGBEJoystick.DoMouseLeave;
+begin
+  inherited;
+  initialiserJoystick;
+end;
+
+procedure TGBEJoystick.MouseMove(Shift: TShiftState; X, Y: Single);
+begin
+  inherited;
+  if ssLeft in shift then
+  begin
+    if fJoystickType = jtOrientation then angleDeVue := PointF(X,Y);
+    if fJoystickType = jtDeplacement then fPosDepartCurseur := PointF(X,Y);
+
+    fCircle2.Position.X := x - offset.x;
+    fCircle2.Position.y := Y - offset.y;
+  end;
+end;
+
+procedure TGBEJoystick.MouseUp(Button: TMouseButton; Shift: TShiftState; X,
+  Y: Single);
+begin
+  inherited;
+  useJoystick := false;
+  initialiserJoystick;
+end;
+
+procedure TGBEJoystick.Paint;
+begin
+  inherited;
+  if useJoystick then
+  begin
+    if fJoystickType = jtDeplacement then
+    begin
+      fAcceleration := ( fPosDepartCurseur.Y - self.height/2) / (sensitivity * 10000);
+      fPlayerPosition.RotationAngle.Y := fPlayerPosition.RotationAngle.Y + (fPosDepartCurseur.x - self.Width /2)/(sensitivity * 5);
+    end;
+  end;
+end;
+
+procedure TGBEJoystick.Resize;
+begin
+  inherited;
+  fCircle2.width := fCircle.Width -20;
+  fCircle2.height := fCircle.height -20;
+  fCircle2.position.X := (fCircle.Width - fCircle2.Width)/2 ;
+  fCircle2.position.Y := (fCircle.Height - fCircle2.Height)/2;
+end;
+
+procedure TGBEJoystick.setJoystickType(const Value: TGBEJoystickType);
+begin
+  fJoystickType := value;
+  case value of
+    jtOrientation: begin  // A améliorer
+                   end;
+    jtDeplacement: begin  // A améliorer
+                   end;
+  end;
+end;
+
+procedure TGBEJoystick.setShowIntegrateJoystick(
+  const Value: boolean);
+begin
+  fShowIntegrateJoystick := Value;
+  fCircle.Visible := fShowIntegrateJoystick;
+  fCircle2.Visible := fShowIntegrateJoystick;
+end;
+
+destructor TGBEJoystick.Destroy;
+begin
+  DoDeleteChildren;
+  inherited;
+end;
+
+end.

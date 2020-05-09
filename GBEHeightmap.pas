@@ -49,6 +49,7 @@ type
     property TwoSide default True;
     property Visible default True;
     property ZWrite default True;
+    property MiseAEchelle : single read fMiseAEchelle;
   end;
 
 procedure Register;
@@ -236,7 +237,6 @@ begin
           if zMap < fMinHauteur then fMinHauteur := zMap;
 
           with D do begin
-            // Set the points
             with VertexBuffer do begin
               Vertices[NP+0] := p[0];
               Vertices[NP+1] := p[1];
@@ -244,7 +244,6 @@ begin
               Vertices[NP+3] := p[3];
             end;
 
-            // Map the colors
             with VertexBuffer do begin
               if FUseRamp then
               begin
@@ -264,13 +263,6 @@ begin
               end;
             end;
 
-            // Map the triangles
-//            IndexBuffer[NI+0] := NP+1;
-//            IndexBuffer[NI+1] := NP+2;
-//            IndexBuffer[NI+2] := NP+3;
-//            IndexBuffer[NI+3] := NP+3;
-//            IndexBuffer[NI+4] := NP+0;
-//            IndexBuffer[NI+5] := NP+1;
             IndexBuffer[NI+0] := NP+0;
             IndexBuffer[NI+1] := NP+1;
             IndexBuffer[NI+2] := NP+3;
@@ -288,7 +280,7 @@ begin
       end;
     end;
 
-    D.CalcFaceNormals; // Calcul de vecteurs binormaux et de tangente pour toutes les faces (permet par exemple de mieux réagir à la lumière)
+    D.CalcTangentBinormals;// CalcFaceNormals; // Calcul de vecteurs binormaux et de tangente pour toutes les faces (permet par exemple de mieux réagir à la lumière)
     aData.Clear;
     aData.Assign(D);
 

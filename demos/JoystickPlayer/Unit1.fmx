@@ -1,0 +1,355 @@
+object form1: Tform1
+  Left = 0
+  Top = 0
+  Caption = 'GBE3D D'#233'mo - TGBEPlayer et TGBEJoystick'
+  ClientHeight = 480
+  ClientWidth = 640
+  Fill.Kind = Gradient
+  Fill.Gradient.Points = <
+    item
+      Color = xFF9EE1FF
+      Offset = 0.000000000000000000
+    end
+    item
+      Color = xFF0064B6
+      Offset = 1.000000000000000000
+    end>
+  Fill.Gradient.StartPosition.X = 0.500000000000000000
+  Fill.Gradient.StartPosition.Y = 1.000000000000000000
+  Fill.Gradient.StopPosition.X = 0.499999970197677600
+  Fill.Gradient.StopPosition.Y = 0.000000000000000000
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object GBEViewport: TGBEViewport3D
+    Align = Client
+    Color = claNull
+    HitTest = False
+    Size.Width = 640.000000000000000000
+    Size.Height = 480.000000000000000000
+    Size.PlatformDefault = False
+    object dmyMonde: TDummy
+      Width = 1.000000000000000000
+      Height = 1.000000000000000000
+      Depth = 1.000000000000000000
+      object GBEHeightmap1: TGBEHeightmap
+        RotationAngle.X = 180.000000000000000000
+        Locked = False
+        Width = 50.000000000000000000
+        Height = 6.000000000000000000
+        Depth = 50.000000000000000000
+        HitTest = True
+        TwoSide = False
+        MaterialSource = TextureMaterialSource1
+        Flou = 1
+        ShowLines = True
+        MaterialLines = ColorMaterialSource1
+        UseRamp = True
+        Quanternion = '(1,0,0,-4.37113882867379E-8)'
+        object GBEPlayerPosition1: TGBEPlayerPosition
+          Position.Z = 19.000000000000000000
+          RotationAngle.X = 180.000000000000000000
+          Width = 1.000000000000000000
+          Height = 1.000000000000000000
+          Depth = 1.000000000000000000
+          AngleOfView = 30.000000000000000000
+          TypePosition = thirdPerson
+          Quanternion = '(1,0,0,-4.37113882867379E-8)'
+          object Dummy1: TDummy
+            Width = 1.000000000000000000
+            Height = 1.000000000000000000
+            Depth = 1.000000000000000000
+            object corps: TCube
+              Position.Y = -0.300000011920929000
+              Width = 0.200000002980232200
+              Height = 0.200000002980232200
+              Depth = 0.200000002980232200
+              MaterialSource = texCorps
+              object jambeD: TCube
+                Position.X = 0.070000000298023220
+                Position.Y = 0.200000002980232200
+                Width = 0.070000000298023220
+                Height = 0.200000002980232200
+                Depth = 0.070000000298023220
+                MaterialSource = texJambe
+              end
+              object jambeG: TCube
+                Position.X = -0.070000000298023220
+                Position.Y = 0.200000002980232200
+                Width = 0.070000000298023220
+                Height = 0.200000002980232200
+                Depth = 0.070000000298023220
+                MaterialSource = texJambe
+              end
+              object Sphere1: TSphere
+                Position.Y = -0.200000002980232200
+                Width = 0.200000002980232200
+                Height = 0.200000002980232200
+                Depth = 0.200000002980232200
+                MaterialSource = texTete
+              end
+              object brasD: TCube
+                Position.X = 0.150000005960464500
+                RotationAngle.Z = 315.000000000000000000
+                Width = 0.050000000745058060
+                Height = 0.200000002980232200
+                Depth = 0.050000000745058060
+                MaterialSource = texBras
+                Quanternion = '(0,0,0.382683396339417,-0.923879504203796)'
+              end
+              object brasG: TCube
+                Position.X = -0.150000005960464500
+                RotationAngle.X = 180.000000000000000000
+                RotationAngle.Z = 225.000000000000000000
+                Width = 0.050000000745058060
+                Height = 0.200000002980232200
+                Depth = 0.050000000745058060
+                MaterialSource = texBras
+                Quanternion = 
+                  '(0.382683455944061,-0.923879444599152,4.03840516582932E-8,-1.672' +
+                  '76255069737E-8)'
+              end
+            end
+          end
+        end
+      end
+    end
+    object Layout1: TLayout
+      Align = Left
+      HitTest = True
+      Size.Width = 128.000000000000000000
+      Size.Height = 480.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object GBEJoystick1: TGBEJoystick
+        Align = Bottom
+        Position.Y = 352.000000000000000000
+        Size.Width = 128.000000000000000000
+        Size.Height = 128.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        PlayerPosition = GBEPlayerPosition1
+        JoystickType = jtOrientation
+        Viewport3D = GBEViewport
+        ShowIntegrateJoystick = True
+        Sensitivity = 180
+        object Image1: TImage
+          MultiResBitmap = <
+            item
+              Width = 50
+              Height = 50
+              PNG = {
+                89504E470D0A1A0A0000000D49484452000000320000003208060000001E3F88
+                B1000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                031D494441546843ED984B685341148693B484F8A022885A442C545D880FB42D
+                B8516AD3A2822E7D2DA5D0BBB2BA6B43314923D8D4BAB1AEDA8D4B25820B5D28
+                B6C5C485456AF14540A1BA72A382150D26B534F13BF74E4BA5C4E6826DA6301F
+                9C7B66CE4CEECC9F3977EEC36330180C0683C1E3F12AEFE9EEEE6EC9E7F39729
+                EEF67ABDEB9DE8D25328142619EF2DFE0673B8A7C2AEA99043341ABDC2890639
+                E1366C95DDB24CA8F164DC338D8D8D81643239E2B4B8C3CBBF1064258638D134
+                F530826E12FBE5342F3D7D7D7D6B32994C2BC5EB58A5CFE70B4622912776A30B
+                BCFCE829220E21A00301D7547CD9212B42B8AB5892F2113B5802CCDFCFFC2D1F
+                87FD2A36A87C59E08F1C50C503CAFF934422518188368A1FB17E1F87B5D2C06A
+                7C175F2E18FF9B2A56295F14B91CD2E9F473166100DB223111B26288C562FB48
+                BB87ACDE3002EA087D715A56881004EC40C00336A557548F2164127F09BFD5EE
+                005A0BE11AD88C808199999934D5134C3C8BF50602815AE272DFF9EDF4D45408
+                02AAB038C509AC8D34921BB76C463B997C6728149215F90B2D8530EF0F5807C5
+                D5ACC05D6C0F2B6021E293D36321BAA6D606263FCECDF128933F8DBD53F1A268
+                290411E7987C03E935A4428BA2A51044DCC1159C5A69E89A5AAE314274C308D1
+                0D2D85B0ED9EC5CDBD8697829642B8ABDF46CC18DB708B0A2D8AAEA93581983A
+                6E8C8F79341945D461152F8A9642AAABAB7721C2C23E533D88A814828610B4D7
+                E9B1102D855896354D5AC9D3EE76AC13413FF1CD087A8998045623FDE6A36B6A
+                D92026C34AF4FAFDFE5AAAFD581E31A7B0F7F23ED2D3D333F7FD4D6B21B37475
+                757D65E217791AAEA7FA08F363ED535353734FC52B42C82CE170F835828EB322
+                CDA4DB38A18D4E8B23242385783CBE4E7CB99897263F942F0AD7C80869578F18
+                D99EDF484C84BC9042369B3D2FBE5CE472394B3C931BB30325809861FA37506C
+                974FA627A9DCA7222FF2E5FA647A81628C94A960FC20E3279DD6D2B11F03582A
+                F954D9C9895C3D16FC4F10202F523144449D883BECAFF1A9546AA4A9A9E919E7
+                AA41CB264295125F26728C3BCA8ED4CA857C4BC50C0683C16030B8C7E3F90357
+                493D472F353FF60000000049454E44AE426082}
+              FileName = 'D:\Developpement\Composants\GBE3D\camera50px.png'
+            end>
+          Align = Center
+          HitTest = False
+        end
+      end
+      object texBras: TTextureMaterialSource
+        Texture.PNG = {
+          89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
+          F4000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+          003E494441545847EDD4211500201044C185FE29A845011E0D5060E87066BE59
+          3B6A5BC6BA29ACFF2D0B000000A09D3D3D6169000000000000000000C580E401
+          4F02068589ABA8A50000000049454E44AE426082}
+        Left = 48
+        Top = 304
+      end
+    end
+    object Layout2: TLayout
+      Align = Right
+      Position.X = 512.000000000000000000
+      Size.Width = 128.000000000000000000
+      Size.Height = 480.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      object GBEJoystick2: TGBEJoystick
+        Align = Bottom
+        Position.Y = 352.000000000000000000
+        Size.Width = 128.000000000000000000
+        Size.Height = 128.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        PlayerPosition = GBEPlayerPosition1
+        JoystickType = jtDeplacement
+        Viewport3D = GBEViewport
+        ShowIntegrateJoystick = True
+        Sensitivity = 30
+        object Image2: TImage
+          MultiResBitmap = <
+            item
+              Width = 50
+              Height = 50
+              PNG = {
+                89504E470D0A1A0A0000000D49484452000000320000003208060000001E3F88
+                B1000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                00E3494441546843EDDA6B0AC2301004E0C47BA9474B6E26B4D712620AFB674B
+                DBBC363894F9409A42848CA138111DD11C5EAEC342088BF7FE29B7B59618E35B
+                C6431E721DD61162F3922B8EFCC9A6ED25B745ADF34BCC76E4DF18040D83A061
+                10340C828641D0DC2688AAF19D555CC945B0EA68605018D51140EDC8688894D2
+                2AC3A296B927CE8F00D6D57A96A375F26147C3206818040D83A0B94D10D58B0C
+                BED5AB7F02B5EE756A47A6F69F9DC110DFBCD68F8C6D1DF59F2BADF34BF8B0A3
+                6110340C828641D030081A064163F6CF87DE0298DF67B206B31DE93802CCABE2
+                44569CFB010593532DBD10D64D0000000049454E44AE426082}
+              FileName = 'D:\Developpement\Composants\GBE3D\camera50px.png'
+            end>
+          Align = Center
+          HitTest = False
+        end
+      end
+      object Rectangle1: TRectangle
+        Align = Top
+        Opacity = 0.899999976158142100
+        Margins.Top = 5.000000000000000000
+        Margins.Right = 5.000000000000000000
+        Position.Y = 5.000000000000000000
+        Size.Width = 123.000000000000000000
+        Size.Height = 105.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Thickness = 3.000000000000000000
+        XRadius = 5.000000000000000000
+        YRadius = 5.000000000000000000
+        object ComboBox1: TComboBox
+          Align = Top
+          Items.Strings = (
+            'Third person'
+            'First person')
+          ItemIndex = 0
+          Margins.Left = 10.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Position.X = 10.000000000000000000
+          Position.Y = 71.000000000000000000
+          Size.Width = 103.000000000000000000
+          Size.Height = 22.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          OnChange = ComboBox1Change
+        end
+        object Label1: TLabel
+          Align = Top
+          Margins.Left = 5.000000000000000000
+          Position.X = 5.000000000000000000
+          Size.Width = 118.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          Text = 'Show lines'
+          TabOrder = 1
+        end
+        object Label2: TLabel
+          Align = Top
+          Margins.Left = 5.000000000000000000
+          Margins.Top = 10.000000000000000000
+          Position.X = 5.000000000000000000
+          Position.Y = 54.000000000000000000
+          Size.Width = 118.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          Text = 'View'
+          TabOrder = 2
+        end
+        object Switch1: TSwitch
+          Align = Top
+          IsChecked = True
+          Margins.Left = 10.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Position.X = 10.000000000000000000
+          Position.Y = 17.000000000000000000
+          Size.Width = 103.000000000000000000
+          Size.Height = 27.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 3
+          OnSwitch = Switch1Switch
+        end
+      end
+    end
+    object texJambe: TTextureMaterialSource
+      Texture.PNG = {
+        89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
+        F4000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+        003D494441545847EDD7B10D00200C034187FDA7603AB6000A7648C1BD64A5BD
+        3695B9761A1BEFB6050000000000000000000000D00EA83BAF596BBF0392036B
+        E503C7BEEE6E660000000049454E44AE426082}
+      Left = 48
+      Top = 200
+    end
+  end
+  object TextureMaterialSource1: TTextureMaterialSource
+    Texture.PNG = {
+      89504E470D0A1A0A0000000D49484452000000FF00000002080600000097040A
+      0D000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+      00D949444154484BED4EDB0DC2300C4C5210125F6CC6248CC754CC80C0E73B87
+      240D02F14BADD8BE87ED369FCE97478AC859608837FA6197D3718F2CEA39DDEE
+      57731E293632109F3457A48522CFBE43A5F1AC09BD3CFD0F6AF56476371D0E37
+      F9A4C9732D144B8954A841740F383C2B2DA7D6EF39E30B46E45AA8ACFC2E79F5
+      BC357B480D46FD6D4F2E1FB1779696B77388EAB926EC151A15E70D1E79E7E150
+      E0916B0EB1E2CD0D2315AFB86197665C73880E237341318C5EB4873EE3C31CFA
+      646FB583FEF1C6B773E293B9524A5A96A54B73B6D8628BFF8B949E8930074351
+      1441B40000000049454E44AE426082}
+    Left = 56
+    Top = 24
+  end
+  object FloatAnimation1: TFloatAnimation
+    Duration = 0.200000002980232200
+    Loop = True
+    OnProcess = FloatAnimation1Process
+    PropertyName = 'tag'
+    StartValue = 0.000000000000000000
+    StopValue = 1.000000000000000000
+  end
+  object ColorMaterialSource1: TColorMaterialSource
+    Color = claSandybrown
+    Left = 56
+    Top = 80
+  end
+  object texCorps: TTextureMaterialSource
+    Texture.PNG = {
+      89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
+      F4000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+      0040494441545847EDD3B10D00200C034187FDA7603AB6000A7648C1B9491BE9
+      75B5EFD2B8F16EDBDA1FA8CC2541EB28A040020A289080020A24A08002097E57
+      901CD53424CBE26D56810000000049454E44AE426082}
+    Left = 48
+    Top = 136
+  end
+  object texTete: TTextureMaterialSource
+    Texture.PNG = {
+      89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
+      F4000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+      006249444154584763FCFF89E13FC3000226283D6060D401A30E1875C0A80346
+      1D30EA8051070C7F07FCFA711BCAC20E886E11C10C62E35005D38400218B6180
+      F1E7ABDB1435C9B0398858CB41806207500A4673C1A803461D30EA8051070CB0
+      031818004D581931C3E5D1120000000049454E44AE426082}
+    Left = 48
+    Top = 256
+  end
+end
