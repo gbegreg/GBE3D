@@ -4,9 +4,9 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, uHeightmap,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, uGBEImageUtils,
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, FMX.Layouts,
-  FMX.ListBox;
+  FMX.ListBox, FMX.Colors;
 
 type
   TForm1 = class(TForm)
@@ -19,6 +19,8 @@ type
     ComboBox2: TComboBox;
     Button2: TButton;
     SaveDialog1: TSaveDialog;
+    ComboColorBox1: TComboColorBox;
+    CheckBox1: TCheckBox;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
   private
@@ -38,7 +40,7 @@ procedure TForm1.Button1Click(Sender: TObject);
 begin
   image1.Bitmap.Width := strtointdef(combobox1.Selected.Text,256);
   image1.Bitmap.Height := image1.Bitmap.Width;
-  image1.Bitmap.CopyFromBitmap(generateDiamondSquare(image1.Bitmap.Width,strtointdef(combobox2.Selected.Text,0)));
+  image1.Bitmap.CopyFromBitmap(generateDiamondSquare(image1.Bitmap.Width,strtointdef(combobox2.Selected.Text,0), ComboColorBox1.Color, CheckBox1.IsChecked, TALphaColorRec.white));
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);

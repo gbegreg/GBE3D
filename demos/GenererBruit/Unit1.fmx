@@ -28,7 +28,7 @@ object Form1: TForm1
       Margins.Left = 5.000000000000000000
       Margins.Top = 10.000000000000000000
       Position.X = 5.000000000000000000
-      Position.Y = 88.000000000000000000
+      Position.Y = 144.000000000000000000
       Size.Width = 92.000000000000000000
       Size.Height = 33.000000000000000000
       Size.PlatformDefault = False
@@ -49,13 +49,14 @@ object Form1: TForm1
     object ComboBox1: TComboBox
       Align = Top
       Items.Strings = (
+        '8'
         '16'
         '32'
         '64'
         '128'
         '256'
         '512')
-      ItemIndex = 4
+      ItemIndex = 5
       Margins.Left = 5.000000000000000000
       Position.X = 5.000000000000000000
       Position.Y = 17.000000000000000000
@@ -101,7 +102,7 @@ object Form1: TForm1
       Margins.Left = 5.000000000000000000
       Margins.Top = 10.000000000000000000
       Position.X = 5.000000000000000000
-      Position.Y = 131.000000000000000000
+      Position.Y = 187.000000000000000000
       Size.Width = 92.000000000000000000
       Size.Height = 33.000000000000000000
       Size.PlatformDefault = False
@@ -109,9 +110,34 @@ object Form1: TForm1
       Text = 'Enregistrer'
       OnClick = Button2Click
     end
+    object ComboColorBox1: TComboColorBox
+      Align = Top
+      Color = claWhite
+      Margins.Left = 5.000000000000000000
+      Margins.Top = 5.000000000000000000
+      Margins.Bottom = 5.000000000000000000
+      Position.X = 5.000000000000000000
+      Position.Y = 83.000000000000000000
+      Size.Width = 92.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 6
+    end
+    object CheckBox1: TCheckBox
+      Align = Top
+      Margins.Left = 5.000000000000000000
+      Margins.Top = 5.000000000000000000
+      Position.X = 5.000000000000000000
+      Position.Y = 115.000000000000000000
+      Size.Width = 92.000000000000000000
+      Size.Height = 19.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 7
+      Text = 'Bordure'
+    end
   end
   object SaveDialog1: TSaveDialog
     Left = 40
-    Top = 176
+    Top = 288
   end
 end
