@@ -39,7 +39,7 @@ contains
   GBEViewport3D in 'GBEViewport3D.pas',
   GBESphereExtend in 'GBESphereExtend.pas',
   uGBEUtils3D in 'uGBEUtils3D.pas',
-  uHeightmap in 'uHeightmap.pas',
+  uGBEImageUtils in 'uGBEImageUtils.pas',
   GBEPlayerPosition in 'GBEPlayerPosition.pas',
   GBEJoystick in 'GBEJoystick.pas';
 

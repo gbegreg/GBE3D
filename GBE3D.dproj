@@ -136,7 +136,7 @@
         <DCCReference Include="GBEViewport3D.pas"/>
         <DCCReference Include="GBESphereExtend.pas"/>
         <DCCReference Include="uGBEUtils3D.pas"/>
-        <DCCReference Include="uHeightmap.pas"/>
+        <DCCReference Include="uGBEImageUtils.pas"/>
         <DCCReference Include="GBEPlayerPosition.pas"/>
         <DCCReference Include="GBEJoystick.pas"/>
         <BuildConfiguration Include="Release">
