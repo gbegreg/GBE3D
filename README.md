@@ -13,8 +13,8 @@ Si cette suite de composants vous plait, merci de laisser une petite étoile ;)
 Grégory Bersegeay http://www.gbesoft.fr 
 
 Quelques captures d'écran :<br>
-<img src="https://github.com/gbegreg/GBE3D/blob/master/cubemap.png"><br>
-<img src="https://github.com/gbegreg/GBE3D/blob/master/grass.png"><br>
-<img src="https://github.com/gbegreg/GBE3D/blob/master/heightmap.png"><br>
-<img src="https://github.com/gbegreg/GBE3D/blob/master/viewport3D.png"><br>
-<img src="https://github.com/gbegreg/GBE3D/blob/master/sphereExtend.png"><br>
+<img src="https://github.com/gbegreg/GBE3D/blob/master/img/cubemap.png"><br>
+<img src="https://github.com/gbegreg/GBE3D/blob/master/img/grass.png"><br>
+<img src="https://github.com/gbegreg/GBE3D/blob/master/img/heightmap.png"><br>
+<img src="https://github.com/gbegreg/GBE3D/blob/master/img/viewport3D.png"><br>
+<img src="https://github.com/gbegreg/GBE3D/blob/master/img/sphereExtend.png"><br>
