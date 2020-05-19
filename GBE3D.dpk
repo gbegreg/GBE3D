@@ -41,6 +41,7 @@ contains
   uGBEUtils3D in 'uGBEUtils3D.pas',
   uGBEImageUtils in 'uGBEImageUtils.pas',
   GBEPlayerPosition in 'GBEPlayerPosition.pas',
-  GBEJoystick in 'GBEJoystick.pas';
+  GBEJoystick in 'GBEJoystick.pas',
+  GBEConeExtend in 'GBEConeExtend.pas';
 
 end.

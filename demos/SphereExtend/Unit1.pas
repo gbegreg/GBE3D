@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   System.Math.Vectors, FMX.Types3D, FMX.Ani, FMX.MaterialSources,
-  FMX.Controls3D, FMX.Objects3D, GBECapsule, FMX.Viewport3D,
+  FMX.Controls3D, FMX.Objects3D, FMX.Viewport3D,
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts, FMX.ListBox,
   FMX.Edit, FMX.EditBox, FMX.SpinBox, GBESphereExtend;
 
