@@ -108,7 +108,6 @@ procedure TGBEClouds.moveClouds;
 var
   s:TPlane;
   P:TFmxObject;  // Va servir d'itérateur pour parcourir tous les objets enfants du dmyNuages
-  NextPosition : TPoint3D;
 begin
   if fActiveWind then
   begin

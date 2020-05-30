@@ -43,6 +43,7 @@ contains
   GBEPlayerPosition in 'GBEPlayerPosition.pas',
   GBEJoystick in 'GBEJoystick.pas',
   GBEConeExtend in 'GBEConeExtend.pas',
-  GBEClouds in 'GBEClouds.pas';
+  GBEClouds in 'GBEClouds.pas',
+  GBEPlaneExtend in 'GBEPlaneExtend.pas';
 
 end.
