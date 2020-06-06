@@ -35,6 +35,7 @@ type
     procedure RebuildMesh;
     procedure loadHeightmapFromFile(filename: string);
     procedure loadHeightmapFromStream(stream: TStream);
+    procedure loadHeightmapFromResource(resourceName : string);
     function GetHeight(P: TPoint3d):single;
   published
     { Déclarations publiées }
@@ -72,6 +73,7 @@ begin
   fHeightmap := TBitmap.Create;
   ShowLines := false;
   UseRamp := false;
+  HitTest := false;
   rotationAngle.X := 180;
   fMiseAEchelle := 1;
   fMaxHauteur := 0;
@@ -103,6 +105,7 @@ procedure TGBEHeightmap.loadHeightmapFromFile(filename: string);
 begin
   if FileExists(filename) then
   begin
+    self.Data.Clear;
     fHeightmap.LoadFromFile(filename);
     fSubdivisionsX := fHeightmap.Width;
     fHalfSubdivisionsX := math.Floor(fSubdivisionsX/2);
@@ -114,12 +117,22 @@ end;
 
 procedure TGBEHeightmap.loadHeightmapFromStream(stream: TStream);
 begin
+  self.Data.Clear;
   fHeightmap.LoadFromStream(stream);
   fSubdivisionsX := fHeightmap.Width;
   fHalfSubdivisionsX := Math.Floor(fSubdivisionsX/2);
   fSubdivisionsZ := fHeightmap.Height;
   fHalfSubdivisionsZ := Math.Floor(fSubdivisionsZ/2);
   generateHeightmap(self.Data);
+end;
+
+procedure TGBEHeightmap.loadHeightmapFromResource(resourceName : string);
+var
+  stream : TResourceStream;
+begin
+  Stream := TResourceStream.Create(HInstance, resourceName, RT_RCDATA);
+  loadHeightmapFromStream(Stream);
+  Stream.Free;
 end;
 
 procedure TGBEHeightmap.RebuildMesh;
