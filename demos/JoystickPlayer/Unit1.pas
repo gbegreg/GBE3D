@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   System.Math.Vectors, FMX.Controls3D, FMX.Objects3D, FMX.Viewport3D,
-  GBEViewport3D, GBEHeightmap, uHeightmap, FMX.MaterialSources, FMX.Ani,
+  GBEViewport3D, GBEHeightmap, FMX.MaterialSources, FMX.Ani,
   GBEPlayerPosition, GBEJoystick, FMX.Layouts, FMX.Controls.Presentation,
   FMX.StdCtrls, uGBEUtils3D, FMX.ListBox, FMX.Objects, FMX.Types3D;
 
@@ -54,6 +54,7 @@ type
 
 const
   tailleJoueur = 0.7;    // Taille du joueur pour la vue FirstPerson
+  vitesseMax = 0.1;    // Vitesse maxi de déplacement
 
 var
   form1: Tform1;
@@ -72,23 +73,26 @@ end;
 
 procedure Tform1.FloatAnimation1Process(Sender: TObject);
 begin
-  vitesse := vitesse + GBEJoystick2.Acceleration;
+  if GBEJoystick2.Acceleration = 0 then vitesse := 0
+  else begin
+    if abs(vitesse) <= vitesseMax then vitesse := vitesse + GBEJoystick2.Acceleration/5000;
 
-  GBEPlayerPosition1.NextPosition.Position.point := GBEPlayerPosition1.Position.Point - GBEJoystick2.direction * vitesse;
-  GBEPlayerPosition1.NextPosition.position.Y := GBEHeightmap1.GetHeight(GBEPlayerPosition1.Position.Point);
+    GBEPlayerPosition1.NextPosition.Position.point := GBEPlayerPosition1.Position.Point - GBEJoystick2.direction * vitesse;
+    GBEPlayerPosition1.NextPosition.position.Y := GBEHeightmap1.GetHeight(GBEPlayerPosition1.Position.Point);
 
-  if GBEPlayerPosition1.TypePosition = TGBETypePosition.firstPerson then
-     GBEPlayerPosition1.NextPosition.position.Y := GBEPlayerPosition1.NextPosition.position.Y + tailleJoueur;
+    if GBEPlayerPosition1.TypePosition = TGBETypePosition.firstPerson then
+       GBEPlayerPosition1.NextPosition.position.Y := GBEPlayerPosition1.NextPosition.position.Y + tailleJoueur;
 
-  // On controle que la prochaine position est dans l'aire de jeu
-  if (GBEPlayerPosition1.NextPosition.position.Point.x < GBEHeightmap1.Depth*0.5) and
-     (GBEPlayerPosition1.NextPosition.position.Point.x > -GBEHeightmap1.Depth*0.5) and
-     (GBEPlayerPosition1.NextPosition.position.Point.z < GBEHeightmap1.width*0.5) and
-     (GBEPlayerPosition1.NextPosition.position.Point.z > -GBEHeightmap1.Depth*0.5) then
-  begin
-    GBEPlayerPosition1.Position.point := GBEPlayerPosition1.NextPosition.position.Point; // Si c'est le cas, on peut affecter la position à la procahine calculée
-  end
-  else vitesse := 0; // sinon on ne déplace pas le joueur et on réinitialise sa vitesse de déplacement
+    // On controle que la prochaine position est dans l'aire de jeu
+    if (GBEPlayerPosition1.NextPosition.position.Point.x < GBEHeightmap1.Depth*0.5) and
+       (GBEPlayerPosition1.NextPosition.position.Point.x > -GBEHeightmap1.Depth*0.5) and
+       (GBEPlayerPosition1.NextPosition.position.Point.z < GBEHeightmap1.width*0.5) and
+       (GBEPlayerPosition1.NextPosition.position.Point.z > -GBEHeightmap1.Depth*0.5) then
+    begin
+      GBEPlayerPosition1.Position.point := GBEPlayerPosition1.NextPosition.position.Point; // Si c'est le cas, on peut affecter la position à la procahine calculée
+    end
+    else vitesse := 0; // sinon on ne déplace pas le joueur et on réinitialise sa vitesse de déplacement
+  end;
 end;
 
 procedure Tform1.FormCreate(Sender: TObject);

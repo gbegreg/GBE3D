@@ -17,7 +17,7 @@ type
     fTime, fAmplitude, fLongueur, fVitesse : single;
     fOrigine, fCenter : TPoint3D;
     fNbMesh : integer;
-    fActiveWaves, fShowlines : boolean;
+    fActiveWaves, fShowlines, fUseTasks : boolean;
     fMaterialLignes: TColorMaterialSource;
     { Déclarations privées }
     procedure CalcWaves(D : TPoint3D);
@@ -36,6 +36,7 @@ type
     property Longueur : single read fLongueur write fLongueur;
     property Vitesse : single read fVitesse write fVitesse;
     property ShowLines: boolean read fShowlines write fShowLines;
+    property UseTasks : boolean read fUseTasks write fUseTasks;
     property MaterialLines : TColorMaterialSource read fMaterialLignes write fMaterialLignes;
   end;
 
@@ -97,6 +98,7 @@ begin
   fOrigine := Point3D(self.SubdivisionsWidth / self.Width, self.SubdivisionsHeight / self.Height, 2);
   fNbMesh:=(SubdivisionsWidth + 1) * (SubdivisionsHeight + 1);
   fCenter := Point3D(SubdivisionsWidth / self.Width, SubdivisionsHeight / self.Height, 0);
+  fUseTasks := true;
 end;
 
 destructor TGBEPlaneExtend.Destroy;
@@ -109,10 +111,17 @@ begin
   inherited;
   if fActiveWaves then
   begin
-    TTask.Create( procedure
-              begin
-                CalcWaves(Point3D(fAmplitude, fLongueur, fVitesse));
-              end).start;
+    if fUseTasks then
+    begin
+      TTask.Create( procedure
+                begin
+                  CalcWaves(Point3D(fAmplitude, fLongueur, fVitesse));
+                end).start;
+    end
+    else
+    begin
+      CalcWaves(Point3D(fAmplitude, fLongueur, fVitesse));
+    end;
   end;
   if ShowLines then
     Context.DrawLines(self.Data.VertexBuffer, self.Data.IndexBuffer, TMaterialSource.ValidMaterial(fMaterialLignes),1);

@@ -204,7 +204,7 @@ object form1: Tform1
         JoystickType = jtDeplacement
         Viewport3D = GBEViewport
         ShowIntegrateJoystick = True
-        Sensitivity = 30
+        Sensitivity = 180
         object Image2: TImage
           MultiResBitmap = <
             item

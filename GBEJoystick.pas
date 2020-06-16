@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Classes, FMX.Types, FMX.Controls, FMX.Layouts, GBEPlayerPosition, System.Math.Vectors, system.types,
-  FMX.Viewport3D, System.UITypes, FMX.Dialogs, FMX.Objects, FMX.Graphics, FMX.Ani;
+  FMX.Viewport3D, System.UITypes, FMX.Dialogs, FMX.Objects, FMX.Graphics, FMX.Ani, uGBEUtils3D;
 
 type
   TGBEJoystickType = (jtOrientation, jtDeplacement);
@@ -166,13 +166,17 @@ end;
 procedure TGBEJoystick.MouseMove(Shift: TShiftState; X, Y: Single);
 begin
   inherited;
+
   if ssLeft in shift then
   begin
-    if fJoystickType = jtOrientation then angleDeVue := PointF(X,Y);
-    if fJoystickType = jtDeplacement then fPosDepartCurseur := PointF(X,Y);
+    if (Viewport3D <> nil) and (PlayerPosition <> nil) then
+    begin
+      if fJoystickType = jtOrientation then angleDeVue := PointF(X,Y);
 
-    fCircle2.Position.X := x - offset.x;
-    fCircle2.Position.y := Y - offset.y;
+      fCircle2.Position.X := x - offset.x;
+      fCircle2.Position.y := Y - offset.y;
+      interactionIHM(Viewport3D);
+    end;
   end;
 end;
 
@@ -191,8 +195,11 @@ begin
   begin
     if fJoystickType = jtDeplacement then
     begin
-      fAcceleration := ( fPosDepartCurseur.Y - self.height/2) / (sensitivity * 10000);
-      fPlayerPosition.RotationAngle.Y := fPlayerPosition.RotationAngle.Y + (fPosDepartCurseur.x - self.Width /2)/(sensitivity * 5);
+      if assigned(fPlayerPosition) then
+      begin
+        FAcceleration := FAcceleration + ((fCircle.Height - fCircle2.Height)*0.5 + fCircle2.position.Y) / Sensitivity;
+        fPlayerPosition.RotationAngle.Y := fPlayerPosition.RotationAngle.Y - ((fCircle.Width - fCircle2.Width)*0.5 - fCircle2.Position.X) / Sensitivity;
+      end;
     end;
   end;
 end;
@@ -202,8 +209,8 @@ begin
   inherited;
   fCircle2.width := fCircle.Width -20;
   fCircle2.height := fCircle.height -20;
-  fCircle2.position.X := (fCircle.Width - fCircle2.Width)/2 ;
-  fCircle2.position.Y := (fCircle.Height - fCircle2.Height)/2;
+  fCircle2.position.X := (fCircle.Width - fCircle2.Width)*0.5;
+  fCircle2.position.Y := (fCircle.Height - fCircle2.Height)*0.5;
 end;
 
 procedure TGBEJoystick.setJoystickType(const Value: TGBEJoystickType);

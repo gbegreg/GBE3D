@@ -135,7 +135,7 @@ begin
             begin
               for I := 0 to FMyRenderingList.Count -1 do
               begin
-                if FMyRenderingList[i].Visible or
+                if FMyRenderingList[i].Visible or (FMyRenderingList[i].Tag <> 2) or
                   (not FMyRenderingList[i].Visible and (csDesigning in ComponentState)
                    and not FMyRenderingList[i].Locked) then
                   begin
@@ -173,7 +173,10 @@ begin
     FMyRenderingList.Clear;
     for i := 0 to Children.Count-1 do
     begin
-      if children[i] is TControl3D then FMyRenderingList.Add((children[i] as TControl3d));
+      if children[i] is TControl3D then
+      begin
+        FMyRenderingList.Add((children[i] as TControl3d));
+      end;
     end;
   end;
 end;

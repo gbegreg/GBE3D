@@ -3,15 +3,20 @@ unit uGBEUtils3D;
 interface
 
 uses System.Math.Vectors, System.Types,System.Classes, FMX.Objects3D, Math, FMX.Controls3D, FMX.Graphics, FMX.Types3D, System.UITypes, FMX.Effects,
-     System.UIConsts, System.SysUtils, System.RTLConsts, FMX.Types, FMX.Ani;
+     System.UIConsts, System.SysUtils, System.RTLConsts, FMX.Types, FMX.Ani, FMX.Viewport3D;
 
 type
   TCustomMeshHelper = class(TCustomMesh);
+  TRetour = record
+    bool : boolean;
+    libelle : string;
+  end;
 
   function Barycentre(p1, p2, p3 : TPoint3D; p4 : TPointF):single;
   function CalculerHauteur(Mesh : TMesh; P: TPoint3D; miseAEchelle : single; sizeMap: integer) : single;
   function SizeOf3D(const unObjet3D: TControl3D): TPoint3D;
-  function DetectionCollisionObstacle(mesh : TMesh; objet : TControl3D):boolean;
+  function DetectionCollisionObstacle(mesh : TMesh; objet : TControl3D):TRetour;
+  procedure interactionIHM(viewport : TViewport3D);
 
 implementation
 
@@ -79,7 +84,7 @@ begin
                                     TPointF.Create(xCoord, zCoord));
     end;
 
-    result := hauteurCalculee*miseAEchelle - demiHeight;
+    result := hauteurCalculee*miseAEchelle - demiHeight ; //- mesh.Height;
   end;
 end;
 
@@ -93,35 +98,52 @@ end;
 
 //------------------------------------------------------------------------------------------
 // Détection de collision "Bounding Box" entre le mesh (TGBEHeightmap et ses objets enfants qui ont leur tag à 1) et un objet
-function DetectionCollisionObstacle(mesh : TMesh; objet : TControl3D):boolean;
+function DetectionCollisionObstacle(mesh : TMesh; objet : TControl3D):TRetour;
 var
   unObjet3D:TControl3D; // l'objet en cours de rendu
   DistanceEntreObjets,distanceMinimum: TPoint3D;
-  i : integer;
-  resultat : boolean;
+  i, j : integer;
+  resultat : TRetour;
 begin
-  resultat := false;
+  resultat.bool := false;
+  resultat.libelle := '';
   // Test collision avec enfants directs de mSol
   for I := 0 to mesh.ChildrenCount-1 do
   begin
     if mesh.Children[i].Tag = 1 then // Il faut que l'enfant du TMesh ait son tag à 1
     begin
-      // On travail sur l'objet qui est en train d'être calculé
-      unObjet3D := TControl3D(mesh.Children[i]);
-      DistanceEntreObjets := unObjet3D.AbsoluteToLocal3D(TPoint3D(objet.AbsolutePosition)); // Distance entre l'objet 3d et la balle
-      distanceMinimum := (SizeOf3D(unObjet3D) + SizeOf3D(objet)) * 0.5; // distanceMinimum : on divise par 2 car le centre de l'objet est la moitié de la taille de l'élément sur les 3 composantes X, Y, Z
-
-      // Test si la valeur absolue de position est inférieure à la distanceMinimum calculée sur chacune des composantes
-      if ((Abs(DistanceEntreObjets.X) < distanceMinimum.X) and (Abs(DistanceEntreObjets.Y) < distanceMinimum.Y) and
-          (Abs(DistanceEntreObjets.Z) < distanceMinimum.Z)) then
+      for j := 0 to mesh.Children[i].ChildrenCount-1 do
       begin
-        resultat := true;
-        break;
+        // On travail sur l'objet qui est en train d'être calculé
+        unObjet3D := TControl3D(mesh.Children[i].Children[j]);
+//        DistanceEntreObjets := unObjet3D.AbsoluteToLocal3D(TPoint3D(objet.AbsolutePosition)); // Distance entre l'objet 3d et le maillage
+        DistanceEntreObjets :=unObjet3D.Position.Point - objet.Position.Point;
+        distanceMinimum := (SizeOf3D(unObjet3D) + SizeOf3D(objet)) * 0.5; // distanceMinimum : on divise par 2 car le centre de l'objet est la moitié de la taille de l'élément sur les 3 composantes X, Y, Z
+
+        // Test si la valeur absolue de position est inférieure à la distanceMinimum calculée sur chacune des composantes
+        if ((Abs(DistanceEntreObjets.X) < distanceMinimum.X) and (Abs(DistanceEntreObjets.Y) < distanceMinimum.Y) and
+            (Abs(DistanceEntreObjets.Z) < distanceMinimum.Z)) then
+        begin
+          resultat.bool := true;
+          resultat.libelle := unObjet3D.Name;
+          break;
+        end;
       end;
     end;
   end;
 
   result := resultat;
+end;
+
+//------------------------------------------------------------------------------------------
+procedure interactionIHM(viewport : TViewport3D);
+var
+  i : integer;
+begin
+  for i := 0 to Viewport.ChildrenCount-1 do
+  begin
+    if Viewport.Children[i] is TAnimation then TAnimation(Viewport.Children[i]).ProcessTick(0,0);
+  end;
 end;
 
 end.

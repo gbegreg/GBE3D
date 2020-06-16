@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Classes, FMX.Types, FMX.Types3D, FMX.Controls3D, FMX.Objects3D, Generics.Collections,
-  System.Math.Vectors, FMX.MaterialSources;
+  System.Math.Vectors, FMX.MaterialSources, System.Threading;
 
 type
   TGBEClouds = class(TDummy)
@@ -13,7 +13,7 @@ type
     fListClouds : TList<TPlane>;
     fNbClouds, fLimits : integer;
     fWindSpeed : single;
-    fActiveWind : boolean;
+    fActiveWind, fUseTasks : boolean;
     fTexturesClouds: TList<TTextureMaterialSource>;
     function getNbClouds: integer;
     function getWindSpeed: single;
@@ -23,6 +23,7 @@ type
     procedure setLimits(const Value: integer);
     function getActiveWind: boolean;
     procedure setActiveWind(const Value: boolean);
+    procedure deplacementNuages;
   protected
     { Déclarations protégées }
   public
@@ -40,6 +41,7 @@ type
     property Limits : integer read getLimits write setLimits;
     property NbClouds : integer read getNbClouds write setNbClouds;
     property WindSpeed : single read getWindSpeed write setWindSpeed;
+    property UseTasks : boolean read fUseTasks write fUseTasks;
   end;
 
 procedure Register;
@@ -68,6 +70,7 @@ begin
   fActiveWind := false;
   fListClouds := TList<TPlane>.Create;
   fTexturesClouds := TList<TTextureMaterialSource>.create;
+  fUseTasks := true;
 end;
 
 procedure TGBEClouds.deleteTexturesClouds;
@@ -105,24 +108,39 @@ begin
 end;
 
 procedure TGBEClouds.moveClouds;
+begin
+  if (fActiveWind) and (NbClouds > 0) then
+  begin
+    if fUseTasks then
+    begin
+      TTask.Create(procedure
+                  begin
+                    deplacementNuages;
+                  end).start;
+    end
+    else
+    begin
+      deplacementNuages;
+    end;
+  end;
+end;
+
+procedure TGBEClouds.deplacementNuages;
 var
   s:TPlane;
   P:TFmxObject;  // Va servir d'itérateur pour parcourir tous les objets enfants du dmyNuages
 begin
-  if fActiveWind then
+  for P in self.Children do // Parcours des objets enfants du dmyNuages
   begin
-    for P in self.Children do // Parcours des objets enfants du dmyNuages
+    if P is TPlane then // Si l'objet est un TPlane
     begin
-      if P is TPlane then // Si l'objet est un TPlane
+      s := TPlane(P);   // On va travailler sur ce TPlane
+      s.position.x := s.position.x + fWindSpeed / ( s.Position.z);
+      if (s.position.x > fLimits) or
+         (s.Position.X < -fLimits)   then      // Si la position en X du nuage > 1000, alors on repositionne le nuage à la position x = -1000 et Y et Z valeurs aléatoires
       begin
-        s := TPlane(P);   // On va travailler sur ce TPlane
-        s.position.x := s.position.x + fWindSpeed / ( s.Position.z);
-        if (s.position.x > fLimits) or
-           (s.Position.X < -fLimits)   then      // Si la position en X du nuage > 1000, alors on repositionne le nuage à la position x = -1000 et Y et Z valeurs aléatoires
-        begin
-          s.Position.point := Point3D(-fLimits, random-0.5, random*fLimits * (0.5-random));
-          s.Opacity := random;
-        end;
+        s.Position.point := Point3D(-fLimits, random-0.5, random*fLimits * (0.5-random));
+        s.Opacity := random;
       end;
     end;
   end;
@@ -184,6 +202,7 @@ begin
     s.Opaque := false;
     s.ZWrite := false;     // pour éviter que le rectangle "cadre" du TPlane soit visible => mais du coup la profondeur n'est plus gérée : le Soleil passe devant les nuages...
     s.HitTest := false;    // pour ne pas pouvoir cliquer dessus
+    s.tag := self.Tag;
     s.Position.Point:=Point3D(random*fLimits * (0.5-random), random - 0.5, random*fLimits * (0.5-random));  // On positionne le nuage arbitrairement et aléatoirement partout au dessus de notre monde
     s.RotationAngle.Z := random * 360; // Orientation aléatoire du nuage
   end;
