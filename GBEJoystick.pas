@@ -119,6 +119,7 @@ end;
 
 procedure TGBEJoystick.initialiserJoystick;
 begin
+  useJoystick := false;
   TAnimator.AnimateFloat(fCircle2, 'Position.X', (fCircle.Width - fCircle2.Width)/2);
   TAnimator.AnimateFloat(fCircle2, 'Position.Y', (fCircle.Height - fCircle2.Height)/2);
   if fJoystickType = jtDeplacement then fAcceleration := 0;
@@ -166,7 +167,6 @@ end;
 procedure TGBEJoystick.MouseMove(Shift: TShiftState; X, Y: Single);
 begin
   inherited;
-
   if ssLeft in shift then
   begin
     if (Viewport3D <> nil) and (PlayerPosition <> nil) then
@@ -184,7 +184,6 @@ procedure TGBEJoystick.MouseUp(Button: TMouseButton; Shift: TShiftState; X,
   Y: Single);
 begin
   inherited;
-  useJoystick := false;
   initialiserJoystick;
 end;
 

@@ -1,0 +1,658 @@
+object fSmartphone: TfSmartphone
+  Size.Width = 158.000000000000000000
+  Size.Height = 319.000000000000000000
+  Size.PlatformDefault = False
+  OnResize = FrameResize
+  object Rectangle1: TRectangle
+    Align = Client
+    Fill.Kind = Gradient
+    Fill.Gradient.Points = <
+      item
+        Color = xFF205D9E
+        Offset = 0.000000000000000000
+      end
+      item
+        Color = xFF35B7D9
+        Offset = 1.000000000000000000
+      end>
+    Fill.Gradient.StartPosition.X = 0.500000000000000000
+    Fill.Gradient.StartPosition.Y = 1.000000000000000000
+    Fill.Gradient.StopPosition.X = 0.499999970197677600
+    Fill.Gradient.StopPosition.Y = 0.000000000000000000
+    Size.Width = 158.000000000000000000
+    Size.Height = 319.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Thickness = 5.000000000000000000
+    XRadius = 20.000000000000000000
+    YRadius = 20.000000000000000000
+    object layScreen: TLayout
+      Align = Client
+      Margins.Left = 5.000000000000000000
+      Margins.Top = 7.000000000000000000
+      Margins.Right = 5.000000000000000000
+      Margins.Bottom = 7.000000000000000000
+      Size.Width = 148.000000000000000000
+      Size.Height = 305.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object GridLayout1: TGridLayout
+        Align = Center
+        ItemHeight = 64.000000000000000000
+        ItemWidth = 64.000000000000000000
+        Orientation = Horizontal
+        Margins.Left = 2.000000000000000000
+        Margins.Right = 2.000000000000000000
+        Size.Width = 134.000000000000000000
+        Size.Height = 133.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        object imgGPS: TImage
+          MultiResBitmap = <
+            item
+              Width = 48
+              Height = 48
+              PNG = {
+                89504E470D0A1A0A0000000D49484452000000300000003008060000005702F9
+                87000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                0355494441546843ED98BB6B54411487F7291215C504D1341A2C82562A120B4D
+                401BB19088A0855A2968E3030B5B0BC13F402D049BA4D528161676228295A0C6
+                4721118360E20325628268F6E5377B7F8810676766F7DEEC46F783611EF7CC39
+                6766CECC9D7B536DDAFCE7A495374CA55231BAB690F696CBE5EDD45793AF32CF
+                3299CCA7743AFD9EF490EA1DF227A48A79D674703483A3470A85C26BCA5E203B
+                469F43143352D31C706263B1581C8DDC0A87BE8FD1D12B75F30BF6F7CDCECECE
+                44AED40F3AA619C4A0D4CE0F18DC83E1827C6818A30B9DBBA53E5930D487C1EF
+                B21D1B6625C836C94C326020CB067C59B59800EC896764C96D6C941FAF5A4A10
+                56F898CC79E1FD1E407786D97F93CFE7D7AA29115885F15C2EB7DEF73DE1BD5C
+                0CA0CFD77966F106593F69A549F41DA0EDA679E602E77B90DFAA6A7C944AA58B
+                287682A327D5650E3C3B23B19A60EB82BAC4077AEF47EAED60F8BAC4AD20734B
+                E25690B9277127DE21446C76AB68853BCF1515AD10DB9755B4C24A396D05A373
+                BA26185E22712B882D8DA4ED60EB9BC49D849CB939E50D817F3E279FB7AD9001
+                4C29B742786C56B116E6CAEDE28B7227DE03E0089D54D10A21744A452BACC069
+                15ADB097265474E23D009C7BAAA2150C1F44AEE6318ACC7E55AD980F1E15E303
+                E327AA3BCC03739C92ED202D3689BEFDB48D98673E207F54669D785F2550DACD
+                51FA8E508AED33F46F705D29F3365E633E43D55413EF1042E1246954D5C4C0C6
+                235FE70D21A790513EAC6262606348452F82C281F05CC1124F10461D6A8A1574
+                4FA3BB9B4D3CA32627412B80E2AF1818513576B2D9EC7088F375C166EEE5555F
+                8ACE8BF8D055A54B66BC095A010331FA8A99BAAD6A6CA0F31AB3FF59D5646115
+                7A98B11FD1DC358EB9BCA1B353EA83085E0103AB30CE8C5D55B561D075099DDE
+                F79F5860E23A3835BC7F27DAE0E5F8826C91D4CE2F2CFB4E96BF1CB9120E7D8B
+                E8D82675CD813BCE90FC0986BECE2FB8C4C18F2E66F243E4923FF4794BB65C6A
+                9A0B613060C22172CD0DB23FE913FFAF9346C0A1F3F2CF09B267D5AD75C0AF1C
+                27CA83C8453BC4FD5DB2BA8EEFC461663B395AC72257E7C2009F23B34CE2AD09
+                0E6E20C6A7E4F36F68FB48B64E62AD0D8318FC73536BD3EED2E385010E1FC6F1
+                32C9DC5C0FA87961C120CE915AEFC469D3E69F2195FA057A5AE71B78C6849100
+                00000049454E44AE426082}
+            end>
+          Margins.Left = 5.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 5.000000000000000000
+          Margins.Bottom = 5.000000000000000000
+          Position.X = 5.000000000000000000
+          Position.Y = 5.000000000000000000
+          Size.Width = 54.000000000000000000
+          Size.Height = 54.000000000000000000
+          Size.PlatformDefault = False
+          OnClick = imgGPSClick
+          object GlowEffect2: TGlowEffect
+            Softness = 0.400000005960464500
+            GlowColor = xFF49DCF3
+            Opacity = 0.899999976158142100
+            Trigger = 'IsMouseOver=true'
+            Enabled = False
+          end
+        end
+        object imgPhoto: TImage
+          MultiResBitmap = <
+            item
+              Width = 48
+              Height = 48
+              PNG = {
+                89504E470D0A1A0A0000000D49484452000000300000003008060000005702F9
+                87000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                02D7494441546843ED98CB8AD4401486FB9206378A1746704017B6E0D21BE22B
+                B8131B4410742DE2E0D29DCE13888F205E70E328BA71A36B4170702B8A2B4145
+                70E81907B56FFA9DE49FD06D8CA924AD49633E0875AAEA9CEAFF4CEA96A95554
+                54E467341A5DFE91128B5178B1A06531909489450D530C2620D0918B6292B01F
+                0E7E7F2A4C370906DC331C0EEFF57ABD4FC1F8C5611AD0B2C49A694BDE047595
+                2138EE1E0C062F5BADD6763595827EBFFFD9F3BC038D46E39D9A7C1A2A4348FA
+                7AD9C41BA6A95EAF5F533524F2067865AB386F56B56C744962AB6C9F480236EF
+                6496121298D01C9942B3C6541360A17D6513B8897992C7760D5B4BF6B479B11D
+                FA6EE1F38DFADFC3A65016D8EA6EDB0EA66162C1D5B6E8BB41547A344C3CF273
+                8645DF43F879853B43CC058BD530CE283C1EF9398390B30AF5A1BE93E72A67C9
+                73F47DB4C76CDAAEF0CCC9CD87FA390DE38C42E3919F2B3714E683A03308FEA2
+                BE08F4ADE1735AEE3E36F5D4ED84C2E2915F22885947CC2E8559DC29DA46416F
+                3CE6031D8559D2F33696BA1351583CF24B84BFDC1D859888394474D59508BE2B
+                C4EC50B8BD05E745AD9090CCDB28E7C9439996F402A7F7165513C1D74ED38B41
+                CD1FEB91CCD4E4390796555A0227643AC31B188F79A1323579DEC007992666AF
+                4C6788D927D378AF32359913F8DD7C2C823C53685E658D3BFA5B99CE10F346A6
+                118E95963C091C5239B1A05D2181F198C32AF36353C385B26CA311E4970822BE
+                53848B173BEB41D6A6CDF94EA4B078E4E7CAEC5E253640D082427DA88F5FE6D6
+                EDF9C365EE92867146A1F1C8CF1904CEF6757A039B0A88FAE71F3453FDA8B74F
+                CA66B3F9806DF531D5654AFF7C60485BEC47288F23BEC35D6893B56781312734
+                57FF95289A48024C83559965A4AB3224920073F8A9CCD2C126F1446648640DE0
+                B49F7DFB190B6D9B9A4A013363C5F3BC63DCA15EABC927F206707885F88324B2
+                44D09A9A0BC3A6345AEE23FEE8AFE22B2A2A2A2AFE776AB59F665E410405E123
+                C10000000049454E44AE426082}
+            end>
+          Margins.Left = 5.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 5.000000000000000000
+          Margins.Bottom = 5.000000000000000000
+          Position.X = 69.000000000000000000
+          Position.Y = 5.000000000000000000
+          Size.Width = 54.000000000000000000
+          Size.Height = 54.000000000000000000
+          Size.PlatformDefault = False
+          object GlowEffect4: TGlowEffect
+            Softness = 0.400000005960464500
+            GlowColor = xFF49DCF3
+            Opacity = 0.899999976158142100
+            Trigger = 'IsMouseOver=true'
+            Enabled = False
+          end
+        end
+        object imgOptions: TImage
+          MultiResBitmap = <
+            item
+              Width = 48
+              Height = 48
+              PNG = {
+                89504E470D0A1A0A0000000D49484452000000300000003008060000005702F9
+                87000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                03E0494441546843ED99C96B144114873393096E880B8AA8898A4BD06804F124
+                7889821A8278F0A07741D418350912BD8828EAC943FE14F5E641F024EE178D09
+                826B885E821A83219924FA55F7CFC064BAABABA6274C0EF34151DB7BAFDEABAE
+                EAAE9AA9A952A54AF9989C9C7CF5379917122F0B19E5A9C1B165643FC39A1D23
+                9BCD6647544D4556796A706AA38A2EF8C85A295B00E0E3D406E5A9A906F01F96
+                50838A89205BAF622CD3D3D38B544C07860E4C4C4C8CF186794CF90483D7A92B
+                80FAE6A9A9A95E6446283B81EC20B6CECD7692AE2C6D47B1F708993F94B7A9AB
+                343098CBE7F36F835105868718E006C61B48DD2638757983EE576CB4515C4C7E
+                96B106C29E10C6B927574A03A3EDB235A71048ECD3C38783722792D8EF00BAAB
+                9891F7757575CBD5541158BAFDB95C6E772693C9ABA980D84D4CE4D72BEDBC01
+                E7B7339967542D22F209E07C3391BF26805A35551456C20F02D9C6D77B584D33
+                443E0122BE53AAF36C3CB3E9BB48BBA8AE36897233A99B49E90B843CC19715E8
+                5F55D50EB3DF82B0376CC40974CF538C0DDCF42173D1C8064A1EA0328EEE1699
+                8A07A13684F3D27342C60FC94422C81E292508F48EC9841D64F7637F30544B06
+                C3B19B2C0E749C5FD1F8328AFC29A9BA81C26AD6F343D9888575FD86CC7BBF18
+                1D36675F60C402F69FE34BA3D4FC403F83B275CDD2DF21716FD0BD2433459831
+                E9EFA198FE4DC84CF587668B61901D12F306DD5D325304FE7F919815A7D328F6
+                D6AB58045FC8AF2A96C267E551AC536EC5F5381D7BB435B3A562B919536EC535
+                806FCAA348733989D5E5C90EA968C51A00936BCEE73D14D7842D9138BFFF2338
+                ACBC08C6DEC4D89DE4A5FDF08072BDB958982562830D6E8E0E39A9396374D07D
+                1718B160EE04F8B2526A6EA0709CB7C0B06C2462664AAACEA07359EA89E0CB67
+                E4F749D50E82C7A4E78CDED9B1CB6136C8B6A2E27B5C3163247FD010DA8AECB8
+                F49CD10073769833A0BB47A6ECB0EEEE4AC71B73B460A04E5213D5852651DE49
+                EAD27E29097C7A20F70A88BBD02CC59101CEE16BD55451087C1C5F9A78B57E50
+                D30C91AF516E3EBFB9015D53B5E2D4D6D6F646396FB05DEA4D70CF487B83860A
+                C1EC7F67321BCDA4AAA980D80F19114F935D096BC56038D26029D86CE1FCCD38
+                E79D60F3DC0FB75108837D608F74909690CCEDCDF9E2331B743F61A355B62E60
+                FBA3BA0274D7F0FE481680E146061AC5D84BCA27671BA46E7E556BF70944B2A7
+                D15B203301B4E5CC18662C64C628B7A82B1D184AFCA19527753BF0CE01646F49
+                2D354EA751D660E2D1963DE3740131F8C826E11480233E4ECDCB007C6E66696E
+                7105942D00CF6531FF9E0001FC62733E553516649EB0A7CAF20F65952A556A6A
+                FE018BAFBF69E98A91350000000049454E44AE426082}
+            end>
+          Margins.Left = 5.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 5.000000000000000000
+          Margins.Bottom = 5.000000000000000000
+          Position.X = 5.000000000000000000
+          Position.Y = 69.000000000000000000
+          Size.Width = 54.000000000000000000
+          Size.Height = 54.000000000000000000
+          Size.PlatformDefault = False
+          OnClick = imgOptionsClick
+          object GlowEffect3: TGlowEffect
+            Softness = 0.400000005960464500
+            GlowColor = xFF49DCF3
+            Opacity = 0.899999976158142100
+            Trigger = 'IsMouseOver=true'
+            Enabled = False
+          end
+        end
+        object imgAide: TImage
+          MultiResBitmap = <
+            item
+              Width = 50
+              Height = 50
+              PNG = {
+                89504E470D0A1A0A0000000D49484452000000320000003208060000001E3F88
+                B1000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                0495494441546843ED9A4B88144718C7F7311BD7605C77578301150F091E7C81
+                288ABA9AC4A8E460C8210A413C496E9188781051F024A8A022887B1224985C92
+                5330484444E22310252A265137121F4108B21A6515DD99DDF5F755FFB7B79B99
+                91ED9EEAD989F883A2BEEAEAFA1EFD555775F74CDD6B6A8C7AD515D3DFDFDF56
+                5F5FBF8C7A29CD697D7D7DEF518F759D82FE470D0D0D5D88D7914F534E521E06
+                BD23C8C0C0C01B38BE06A77FECEDED2DD04E848D61EC31C4D59426A9AD1E383F
+                9AB20947EE3A8F3C80AE3BE8DC68BA65265BB0F9693E9FFF3B30EF1F74DF2498
+                5532E71F6CB4300DBE0FCC650FB6BEA61A23F37E40E1C442A170C959A822D8BC
+                4876DE961B9581BE29A4FB46A0BAFA60FB1AC14C963BE940CF14BB0903952387
+                EE9B77E45649CAEE238C6F669E9E6D6C6C9CA343230ABEFCCA1ED44179AE4331
+                1A5417C11538502B4118F8328F8BBB4FCD224A66842056B2E31E5733154C871E
+                8C9F47BCC6557C4A6D0BC6C25C2E673B7E2AD039C0F8E5E83BA943E52188D10C
+                F8CB4DCE14704FF5A2633B25F6783208C73B08E8B24E4F0CBE5D47C728A92B0F
+                276DD698C410439EF19F48555938F54D82391D8C4A0E36BE92AAD2704E33CEDC
+                0B4E4F0E37E44EA97260F0638E75528E206FA0848F1F9C3E115B3DC1C86430EE
+                1F7495CF0A9DEB746E6250FE846A9C5499AEAD41CF104C8BDF39FE964EB195A8
+                535D8941CFE752530C8A7FD2798961EC31A9B1AB3D95C0CA3D0D6FD16916EC1A
+                1D4B4CD49E112EBFF4B5D2F9A19A696846C7FB38D746FD59535353A38EC7A07F
+                9644E35FD589C1D7E5E80A1794E83EB2B49CF1E1C0926817E114CB7637654F70
+                B424DDAA8D16D589C1577B7F5912B4228110DD62899961FB00411E55D366C122
+                89A9607C87C45846A6ABCE0C36C88364EE17933595BF701DE9097D8E66E45D89
+                994036EE12C47635DDAAC6EC68553315519F6337BB44EF104481478BB54CABFF
+                AC8D03F3C9C646D75901F8DC263136B5C2F5DD3704B18D6CFC6C3241B4B3AB7F
+                473672AEB3324AAE5A59619F7DC2550CF910414C52D31BD1407A547B8329D547
+                FABFC4F97E6B938DF554AB4DF6C463D5438160EC81446FB04A1D674A5D359980
+                C631A576B90E4F447D0E03C1E00D893E097512C802A654BB9A5E88FA1C9D5A7F
+                AAF649F4B5F4A5EFDC29097D8E66E48C449F4C23131FA9787F6D666AB995D008
+                5F7531D4CACD799FF4A77EDEAA26F89A67591F4F02DC0D1FBDD91F72739E50B3
+                E6D14252BC6A1904F38D442FB0DCFE40A6B758413EACC35EC0D76F251683B151
+                F61A89612FA06FAD549BEEB93A5C31F8788B2AF633442C23A4EA39F36EBF9A35
+                0B3EEE232379351DB140C44136AE9B926B0E7CB3BDA333680D91D9073A03A35D
+                64F9B6C94C8509DCA0B35D474A58A886FF816E101EB3F7BA095943E0D36EB957
+                C4ABFF119BA9F58C412B981E7FE8D088411097B8A036A54A06312CC8CCFFFF87
+                9E41D0675FD27F0B5457950B04E1E7A7B741509AA3EC6033B297A54CD157CA1D
+                141FAFC3A5E10A2D23DD5DCE6206A0DB7E36F840E6B2054399FD6100B15966AA
+                07466BE62F1C65F791A4E0480B65316521CD99043803B99DF71BF7C98629F398
+                25BD9B25D4DEE1AF209FA33E433B7C147FCDAB435DDD0B6D3DDC7276904E0500
+                00000049454E44AE426082}
+            end>
+          Margins.Left = 5.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 5.000000000000000000
+          Margins.Bottom = 5.000000000000000000
+          Position.X = 69.000000000000000000
+          Position.Y = 69.000000000000000000
+          Size.Width = 54.000000000000000000
+          Size.Height = 54.000000000000000000
+          Size.PlatformDefault = False
+          OnClick = imgAideClick
+          object GlowEffect1: TGlowEffect
+            Softness = 0.400000005960464500
+            GlowColor = xFF49DCF3
+            Opacity = 0.899999976158142100
+            Trigger = 'IsMouseOver=true'
+            Enabled = False
+          end
+        end
+      end
+      object recGPS: TRectangle
+        Align = Client
+        Fill.Kind = Gradient
+        Fill.Gradient.Points = <
+          item
+            Color = xFF205D9E
+            Offset = 0.000000000000000000
+          end
+          item
+            Color = xFF35B7D9
+            Offset = 1.000000000000000000
+          end>
+        Fill.Gradient.StartPosition.X = 0.500000000000000000
+        Fill.Gradient.StartPosition.Y = 1.000000000000000000
+        Fill.Gradient.StopPosition.X = 0.499999970197677600
+        Fill.Gradient.StopPosition.Y = 0.000000000000000000
+        Margins.Left = 2.000000000000000000
+        Margins.Right = 2.000000000000000000
+        Margins.Bottom = 15.000000000000000000
+        Size.Width = 130.000000000000000000
+        Size.Height = 215.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+        Visible = False
+        object imgCarte: TImage
+          MultiResBitmap = <
+            item
+            end>
+          Align = Client
+          HitTest = False
+          Margins.Left = 5.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 5.000000000000000000
+          Margins.Bottom = 5.000000000000000000
+          Size.Width = 120.000000000000000000
+          Size.Height = 205.000000000000000000
+          Size.PlatformDefault = False
+        end
+      end
+      object recOptions: TRectangle
+        Align = Client
+        Fill.Kind = Gradient
+        Fill.Gradient.Points = <
+          item
+            Color = xFF205D9E
+            Offset = 0.000000000000000000
+          end
+          item
+            Color = xFF35B7D9
+            Offset = 1.000000000000000000
+          end>
+        Fill.Gradient.StartPosition.X = 0.500000000000000000
+        Fill.Gradient.StartPosition.Y = 1.000000000000000000
+        Fill.Gradient.StopPosition.X = 0.499999970197677600
+        Fill.Gradient.StopPosition.Y = 0.000000000000000000
+        Margins.Left = 2.000000000000000000
+        Margins.Top = 2.000000000000000000
+        Margins.Right = 2.000000000000000000
+        Margins.Bottom = 15.000000000000000000
+        Size.Width = 144.000000000000000000
+        Size.Height = 270.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+        Visible = False
+        object btnOptionAppliquer: TButton
+          Align = Bottom
+          Margins.Left = 5.000000000000000000
+          Margins.Right = 5.000000000000000000
+          Margins.Bottom = 5.000000000000000000
+          Position.X = 5.000000000000000000
+          Position.Y = 225.000000000000000000
+          Size.Width = 134.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 1
+          Text = 'Appliquer'
+        end
+        object Label1: TLabel
+          Align = Top
+          StyledSettings = [Family, Style, FontColor]
+          Margins.Left = 2.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Position.X = 2.000000000000000000
+          Position.Y = 5.000000000000000000
+          Size.Width = 142.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          Text = 'Filtre'
+          TabOrder = 2
+          object cbAliasing: TComboBox
+            Items.Strings = (
+              'Aucun'
+              '2X'
+              '4X')
+            ItemIndex = 2
+            Position.X = 47.000000000000000000
+            Position.Y = 3.000000000000000000
+            Size.Width = 90.000000000000000000
+            Size.Height = 22.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+          end
+        end
+        object cbFPS: TCheckBox
+          Align = Top
+          Margins.Left = 2.000000000000000000
+          Position.X = 2.000000000000000000
+          Position.Y = 175.000000000000000000
+          Size.Width = 142.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 3
+          Text = 'FPS'
+        end
+        object Label11: TLabel
+          Align = Top
+          StyledSettings = [Family, Style, FontColor]
+          Margins.Left = 2.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Position.X = 2.000000000000000000
+          Position.Y = 95.000000000000000000
+          Size.Width = 142.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          Text = 'Sol'
+          TabOrder = 4
+          object cbDetailsSol: TComboBox
+            Items.Strings = (
+              'Tr'#232's faible'
+              'Faible'
+              'Moyen'
+              'Elev'#233
+              'Tr'#232's '#233'lev'#233)
+            ItemIndex = 0
+            Position.X = 46.000000000000000000
+            Position.Y = 3.000000000000000000
+            Size.Width = 91.000000000000000000
+            Size.Height = 22.000000000000000000
+            Size.PlatformDefault = False
+          end
+        end
+        object cbAfficherLignes: TCheckBox
+          Align = Top
+          Margins.Left = 2.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Position.X = 2.000000000000000000
+          Position.Y = 125.000000000000000000
+          Size.Width = 142.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 5
+          Text = 'Lignes'
+        end
+        object cbTasks: TCheckBox
+          Align = Top
+          Margins.Left = 2.000000000000000000
+          Position.X = 2.000000000000000000
+          Position.Y = 150.000000000000000000
+          Size.Width = 142.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 6
+          Text = 'Multi t'#226'ches'
+        end
+        object Label2: TLabel
+          Align = Top
+          Margins.Left = 2.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Position.X = 2.000000000000000000
+          Position.Y = 35.000000000000000000
+          Size.Width = 142.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          Text = 'Nuages'
+          TabOrder = 7
+          object sbNuages: TSpinBox
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            TabOrder = 0
+            Cursor = crIBeam
+            Position.X = 46.000000000000000000
+            Size.Width = 91.000000000000000000
+            Size.Height = 22.000000000000000000
+            Size.PlatformDefault = False
+          end
+        end
+        object Label3: TLabel
+          Align = Top
+          Margins.Left = 2.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Position.X = 2.000000000000000000
+          Position.Y = 65.000000000000000000
+          Size.Width = 142.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          Text = 'Oc'#233'an'
+          TabOrder = 8
+          object cbDetailsOcean: TComboBox
+            Items.Strings = (
+              'Faible'
+              'Moyen'
+              'Elev'#233)
+            ItemIndex = 1
+            Position.X = 46.000000000000000000
+            Position.Y = 2.000000000000000000
+            Size.Width = 91.000000000000000000
+            Size.Height = 22.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+          end
+        end
+        object cbHerbe: TCheckBox
+          Align = Top
+          Margins.Left = 2.000000000000000000
+          Position.X = 2.000000000000000000
+          Position.Y = 200.000000000000000000
+          Size.Width = 142.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 9
+          Text = 'Herbe'
+        end
+      end
+      object recAide: TRectangle
+        Align = Client
+        Fill.Kind = Gradient
+        Fill.Gradient.Points = <
+          item
+            Color = xFF205D9E
+            Offset = 0.000000000000000000
+          end
+          item
+            Color = xFF35B7D9
+            Offset = 1.000000000000000000
+          end>
+        Fill.Gradient.StartPosition.X = 0.500000000000000000
+        Fill.Gradient.StartPosition.Y = 1.000000000000000000
+        Fill.Gradient.StopPosition.X = 0.499999970197677600
+        Fill.Gradient.StopPosition.Y = 0.000000000000000000
+        Margins.Left = 2.000000000000000000
+        Margins.Right = 2.000000000000000000
+        Margins.Bottom = 15.000000000000000000
+        Size.Width = 130.000000000000000000
+        Size.Height = 215.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+        Visible = False
+        object lblAide: TLabel
+          Align = Client
+          Size.Width = 130.000000000000000000
+          Size.Height = 215.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.HorzAlign = Center
+          Text = 
+            'Island est une d'#233'monstration de ce qu'#39'il est possible de faire a' +
+            'vec la suite de composants GBE3D pour Delphi. '
+          TabOrder = 1
+        end
+      end
+      object layHaut: TLayout
+        Align = Top
+        Size.Width = 148.000000000000000000
+        Size.Height = 18.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        object Image1: TImage
+          MultiResBitmap = <
+            item
+              Width = 24
+              Height = 24
+              PNG = {
+                89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+                F8000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                013949444154484BB595CD4AC3401446A30BC1271137E24A111451AA6871A13B
+                7FF1717C01F1CD7C06370AFED436264ED293C917A965BAE8DCE98132736F3ECE
+                9DA6D0C92C5455B5AA6D7A90DF1745913BE79EEABA5E523B0DC86F91FF22F630
+                E4418FEC20BF9E94379465F9ACC736F45A9CBC1EEA17FA6B8AC483E42E207FA5
+                BFA1483C48FEBDF306EA37964D45E2417E13907FD0DF56241E245701F927FD1D
+                45E2417219907FB1EC2A120F92736485B70ACA114B4F917838F9BA647F34C3E8
+                5F283217CB5A2709F51C9F41BB4D00A7DDE3D0037D010FF50FFD3345ECE0EC21
+                1DB6FA16EA9C217D45EC203B423AFD7B0CE91F2A6207D97160C837FD0345EC20
+                3B9931645F113BC84E91E6F27BA8D3FC657420EB4F0F8177FA5B8AD841B6B80B
+                A783218BBB323B18D2DC6E23E48FCC487BE977205ED17606593606EF5000839B
+                4ACB060000000049454E44AE426082}
+            end>
+          Align = Left
+          Size.Width = 25.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          Visible = False
+          OnClick = Image1Click
+          object GlowEffect5: TGlowEffect
+            Softness = 0.400000005960464500
+            GlowColor = xFFFFED4F
+            Opacity = 0.899999976158142100
+            Trigger = 'IsMouseOver=true'
+            Enabled = False
+          end
+        end
+        object Image2: TImage
+          MultiResBitmap = <
+            item
+              Width = 24
+              Height = 24
+              PNG = {
+                89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+                F8000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                008A49444154484BEDD5490E80200C0550F0787A75E30D34C6E11680B6E66F0C
+                296D8C1B236F43231D9485B87F08210C47AEC77691C75AC4DD10DE788250D460
+                CDA4943A7AF3496ACE788F7246CA6DF1C88E0A176E6041B933CA32E227722142
+                13E9B8C4237A4B1DA0AA03547580AA0E508903628C3B4215E5AE08ED70E1ECD7
+                0FBF8072B64717CE47387702AC599B1285ADA1290000000049454E44AE426082}
+            end>
+          Align = Right
+          Margins.Right = 4.000000000000000000
+          Position.X = 126.000000000000000000
+          Size.Width = 18.000000000000000000
+          Size.Height = 18.000000000000000000
+          Size.PlatformDefault = False
+          OnClick = Image1Click
+        end
+        object lblHour: TLabel
+          Align = Client
+          Size.Width = 126.000000000000000000
+          Size.Height = 18.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.HorzAlign = Trailing
+          TabOrder = 2
+        end
+      end
+      object recPhoto: TRectangle
+        Align = Client
+        Fill.Kind = Gradient
+        Fill.Gradient.Points = <
+          item
+            Color = xFF205D9E
+            Offset = 0.000000000000000000
+          end
+          item
+            Color = xFF35B7D9
+            Offset = 1.000000000000000000
+          end>
+        Fill.Gradient.StartPosition.X = 0.500000000000000000
+        Fill.Gradient.StartPosition.Y = 1.000000000000000000
+        Fill.Gradient.StopPosition.X = 0.499999970197677600
+        Fill.Gradient.StopPosition.Y = 0.000000000000000000
+        Margins.Left = 2.000000000000000000
+        Margins.Right = 2.000000000000000000
+        Margins.Bottom = 15.000000000000000000
+        Size.Width = 130.000000000000000000
+        Size.Height = 215.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+        Visible = False
+        object Image3: TImage
+          MultiResBitmap = <
+            item
+            end>
+          Align = Client
+          HitTest = False
+          Margins.Left = 5.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 5.000000000000000000
+          Margins.Bottom = 5.000000000000000000
+          Size.Width = 120.000000000000000000
+          Size.Height = 205.000000000000000000
+          Size.PlatformDefault = False
+        end
+      end
+    end
+    object Rectangle2: TRectangle
+      Fill.Color = claBlack
+      Position.X = 64.000000000000000000
+      Size.Width = 40.000000000000000000
+      Size.Height = 15.000000000000000000
+      Size.PlatformDefault = False
+      XRadius = 7.500000000000000000
+      YRadius = 7.500000000000000000
+    end
+  end
+end

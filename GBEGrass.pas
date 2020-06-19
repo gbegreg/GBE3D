@@ -53,6 +53,8 @@ begin
 end;
 
 procedure TGBEGrass.Render;
+var
+  valeur : single;
 begin
   inherited;
   if wind then
@@ -60,8 +62,9 @@ begin
     TTask.create(procedure
                  begin
                   fTemps := fTemps + 0.1;
-                  self.Data.VertexBuffer.VerticesPtr[0].X := self.Data.VertexBuffer.VerticesPtr[0].X + (sin(fTemps)/100) ; //self.Scale.Y * 10 ;
-                  self.Data.VertexBuffer.VerticesPtr[1].X := self.Data.VertexBuffer.VerticesPtr[1].X + (sin(fTemps)/100) ;//self.Scale.Y * 10 ;
+                  valeur := sin(fTemps) * 0.01;
+                  self.Data.VertexBuffer.VerticesPtr[0].X := self.Data.VertexBuffer.VerticesPtr[0].X + valeur;
+                  self.Data.VertexBuffer.VerticesPtr[1].X := self.Data.VertexBuffer.VerticesPtr[1].X + valeur;
                  end).start;
   end;
 end;

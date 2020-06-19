@@ -11,7 +11,7 @@ uses
   System.Math.Vectors, FMX.MaterialSources;
 
 type
-  TCustomMehHelp = Class(TCustomMesh);
+  TCustomMeshHelper = class(TCustomMesh);
   TForme = (capsule, dome, culbuto, sphere, pomme, pot, losange);
   TGBESphereExtend = class(TMesh)
   private
@@ -70,9 +70,9 @@ begin
   SbA:=Sp.SubdivisionsAxes;
   SbH:=SP.SubdivisionsHeight div 2;
 
-  D.Assign(TCustomMehHelp(Sp).Data);
+  D.Assign(TCustomMeshHelper(Sp).Data);
 
-  TCustomMehHelp(Sp).data.Clear;
+  TCustomMeshHelper(Sp).data.Clear;
   Sp.Free;
 
   if (aForme <> TForme.sphere) and (aForme <> TForme.losange) then
