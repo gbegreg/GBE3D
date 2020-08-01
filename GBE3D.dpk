@@ -45,6 +45,7 @@ contains
   GBEConeExtend in 'GBEConeExtend.pas',
   GBEClouds in 'GBEClouds.pas',
   GBEPlaneExtend in 'GBEPlaneExtend.pas',
-  GBECylinderExtend in 'GBECylinderExtend.pas';
+  GBECylinderExtend in 'GBECylinderExtend.pas',
+  GBECubeExtend in 'GBECubeExtend.pas';
 
 end.
