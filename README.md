@@ -10,7 +10,8 @@ L'aide en ligne est disponible sur le wiki : https://github.com/gbegreg/GBE3D/wi
 
 Si cette suite de composants vous plait, merci de laisser une petite étoile ;)
 
-Grégory Bersegeay http://www.gbesoft.fr 
+Grégory Bersegeay http://www.gbesoft.fr <br>
+Youtube : https://www.youtube.com/channel/UCmmgsWSi92t51LbWaiyBRkQ/videos
 
 Quelques captures d'écran :<br>
 <img src="https://github.com/gbegreg/GBE3D/blob/master/img/cubemap.png"><br>
