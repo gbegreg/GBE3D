@@ -7,7 +7,7 @@ uses
   FMX.Viewport3D, System.UITypes, FMX.Dialogs, FMX.Objects, FMX.Graphics, FMX.Ani, uGBEUtils3D;
 
 type
-  TGBEJoystickType = (jtOrientation, jtDeplacement);
+  TGBEJoystickType = (jtOrientation, jtDeplacement, jtOrientationDeplacement);
   TGBEJoystick = class(TLayout)
   private
     { Déclarations privées }
@@ -106,7 +106,7 @@ end;
 
 function TGBEJoystick.GetDirection: TPoint3D;
 begin
-  if fJoystickType = jtDeplacement then
+  if (fJoystickType = jtDeplacement) or (fJoystickType = jtOrientationDeplacement) then
   begin
     if assigned(fPlayerPosition) then
     begin
@@ -122,7 +122,7 @@ begin
   useJoystick := false;
   TAnimator.AnimateFloat(fCircle2, 'Position.X', (fCircle.Width - fCircle2.Width)/2);
   TAnimator.AnimateFloat(fCircle2, 'Position.Y', (fCircle.Height - fCircle2.Height)/2);
-  if fJoystickType = jtDeplacement then fAcceleration := 0;
+  if (fJoystickType = jtDeplacement) or (fJoystickType = jtOrientationDeplacement) then fAcceleration := 0;
 end;
 
 procedure TGBEJoystick.SetAngleDeVue(const Value: TPointF);
@@ -171,8 +171,7 @@ begin
   begin
     if (Viewport3D <> nil) and (PlayerPosition <> nil) then
     begin
-      if fJoystickType = jtOrientation then angleDeVue := PointF(X,Y);
-
+      if (fJoystickType = jtOrientation) or (fJoystickType = jtOrientationDeplacement) then angleDeVue := PointF(X,Y);
       fCircle2.Position.X := x - offset.x;
       fCircle2.Position.y := Y - offset.y;
       interactionIHM(Viewport3D);
@@ -192,7 +191,7 @@ begin
   inherited;
   if useJoystick then
   begin
-    if fJoystickType = jtDeplacement then
+    if (fJoystickType = jtDeplacement) or (fJoystickType = jtOrientationDeplacement) then
     begin
       if assigned(fPlayerPosition) then
       begin
@@ -219,6 +218,8 @@ begin
     jtOrientation: begin  // A améliorer
                    end;
     jtDeplacement: begin  // A améliorer
+                   end;
+    jtOrientationDeplacement: begin  // A améliorer
                    end;
   end;
 end;
