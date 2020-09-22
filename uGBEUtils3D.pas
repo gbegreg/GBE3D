@@ -7,16 +7,18 @@ uses System.Math.Vectors, System.Types,System.Classes, FMX.Objects3D, Math, FMX.
 
 type
   TCustomMeshHelper = class(TCustomMesh);
-  TRetour = record
+  TGBECollisionRetour = record
     bool : boolean;
-    libelle : string;
+    objet : TControl3D;
   end;
 
   function Barycentre(p1, p2, p3 : TPoint3D; p4 : TPointF):single;
   function CalculerHauteur(Mesh : TMesh; P: TPoint3D; miseAEchelle : single; sizeMap: integer) : single;
   function SizeOf3D(const unObjet3D: TControl3D): TPoint3D;
-  function DetectionCollisionObstacle(mesh : TMesh; objet : TControl3D):TRetour;
+  function DetectionCollisionObstacle(mesh : TMesh; objet : TControl3D):TGBECollisionRetour;
   procedure interactionIHM(viewport : TViewport3D);
+  function collisionDummyChilds(aDummy: TDummy; objet3D : TControl3D): TGBECollisionRetour;
+  function collisionEntre2Objets(objet1, objet2 : TControl3D): TGBECollisionRetour;
 
 implementation
 
@@ -98,15 +100,15 @@ end;
 
 //------------------------------------------------------------------------------------------
 // Détection de collision "Bounding Box" entre le mesh (TGBEHeightmap et ses objets enfants qui ont leur tag à 1) et un objet
-function DetectionCollisionObstacle(mesh : TMesh; objet : TControl3D):TRetour;
+function DetectionCollisionObstacle(mesh : TMesh; objet : TControl3D):TGBECollisionRetour;
 var
   unObjet3D:TControl3D; // l'objet en cours de rendu
   DistanceEntreObjets,distanceMinimum: TPoint3D;
   i, j : integer;
-  resultat : TRetour;
+  resultat : TGBECollisionRetour;
 begin
   resultat.bool := false;
-  resultat.libelle := '';
+  resultat.objet := nil;
   // Test collision avec enfants directs de mSol
   for I := 0 to mesh.ChildrenCount-1 do
   begin
@@ -116,18 +118,24 @@ begin
       begin
         // On travail sur l'objet qui est en train d'être calculé
         unObjet3D := TControl3D(mesh.Children[i].Children[j]);
-//        DistanceEntreObjets := unObjet3D.AbsoluteToLocal3D(TPoint3D(objet.AbsolutePosition)); // Distance entre l'objet 3d et le maillage
-        DistanceEntreObjets :=unObjet3D.Position.Point - objet.Position.Point;
-        distanceMinimum := (SizeOf3D(unObjet3D) + SizeOf3D(objet)) * 0.5; // distanceMinimum : on divise par 2 car le centre de l'objet est la moitié de la taille de l'élément sur les 3 composantes X, Y, Z
 
-        // Test si la valeur absolue de position est inférieure à la distanceMinimum calculée sur chacune des composantes
-        if ((Abs(DistanceEntreObjets.X) < distanceMinimum.X) and (Abs(DistanceEntreObjets.Y) < distanceMinimum.Y) and
-            (Abs(DistanceEntreObjets.Z) < distanceMinimum.Z)) then
-        begin
+        if collisionEntre2Objets(unObjet3D, objet).bool then begin
           resultat.bool := true;
-          resultat.libelle := unObjet3D.Name;
+          resultat.objet := unObjet3D;
           break;
         end;
+//
+//        DistanceEntreObjets :=unObjet3D.Position.Point - objet.Position.Point;
+//        distanceMinimum := (SizeOf3D(unObjet3D) + SizeOf3D(objet)) * 0.5; // distanceMinimum : on divise par 2 car le centre de l'objet est la moitié de la taille de l'élément sur les 3 composantes X, Y, Z
+//
+//        // Test si la valeur absolue de position est inférieure à la distanceMinimum calculée sur chacune des composantes
+//        if ((Abs(DistanceEntreObjets.X) < distanceMinimum.X) and (Abs(DistanceEntreObjets.Y) < distanceMinimum.Y) and
+//            (Abs(DistanceEntreObjets.Z) < distanceMinimum.Z)) then
+//        begin
+//          resultat.bool := true;
+//          resultat.objet := unObjet3D;
+//          break;
+//        end;
       end;
     end;
   end;
@@ -143,6 +151,41 @@ begin
   for i := 0 to Viewport.ChildrenCount-1 do
   begin
     if Viewport.Children[i] is TAnimation then TAnimation(Viewport.Children[i]).ProcessTick(0,0);
+  end;
+end;
+
+//------------------------------------------------------------------------------------------
+function collisionDummyChilds(aDummy: TDummy; objet3D : TControl3D): TGBECollisionRetour;
+var
+  i : integer;
+  resultat, resCollision : TGBECollisionRetour;
+  DistanceEntreObjets,distanceMinimum: TPoint3D;
+begin
+  resultat.bool := false;
+  resultat.objet := nil;
+  for I := aDummy.ChildrenCount -1 downto 0 do begin
+    if (aDummy.Children[i] as TControl3D).visible then begin
+      resultat := collisionEntre2Objets(objet3D, (aDummy.Children[i] as TControl3D));
+      if resultat.bool then break;
+    end;
+  end;
+  result := resultat;
+end;
+
+function collisionEntre2Objets(objet1, objet2 : TControl3D): TGBECollisionRetour;
+var
+  DistanceEntreObjets,distanceMinimum: TPoint3D;
+begin
+  result.objet := nil;
+  result.bool := false;
+
+  DistanceEntreObjets := objet1.Position.Point - objet2.Position.Point;
+  distanceMinimum := (SizeOf3D(objet1) + SizeOf3D(objet2)) * 0.5;
+
+  if ((Abs(DistanceEntreObjets.X) < distanceMinimum.X) and (Abs(DistanceEntreObjets.Y) < distanceMinimum.Y) and
+     (Abs(DistanceEntreObjets.Z) < distanceMinimum.Z)) then begin
+    result.bool := true;
+    result.objet := objet2;
   end;
 end;
 

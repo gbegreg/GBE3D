@@ -480,7 +480,7 @@ end;
 
 procedure TfrmMain.SceneGame;
 var
-  resultat : TRetour;
+  resultat : TGBECollisionRetour;
 begin
   if preparationAFaire then preparationSceneGame;
   if smartphone.sbNuages.Value > 0 then GBEClouds1.moveClouds;
@@ -507,7 +507,7 @@ begin
          modelJoueur.Position.point := GBEPlayerPosition.Position.point;
          modelJoueur.RotationAngle.y := 180-GBEPlayerPosition.RotationAngle.Y;
       end
-      else lblCollision.text := 'Collision avec ' + resultat.libelle;
+      else lblCollision.text := 'Collision avec ' + resultat.objet.Name;
     end
     else vitesse := 0; // sinon on ne déplace pas le joueur et on réinitialise sa vitesse de déplacement
   end;

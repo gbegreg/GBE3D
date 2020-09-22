@@ -6,6 +6,7 @@ uses FMX.Graphics, System.UITypes, System.SysUtils, FMX.Effects, System.UIConsts
 
   function generateDiamondSquare(size, blurLevel : integer; color: TAlphaColor = TAlphaColorRec.White; bordure : boolean = false; colorBordure : TAlphaColor = TAlphaColorRec.Black): TBitmap;
   function tileImage(imageOrigine : TBitmap; nbX, nbY : integer): TBitmap;
+  function cropImage(originBitmap : TBitmap; Xpos, Ypos, width, height: integer): TBitmap;
 
 implementation
 
@@ -176,6 +177,21 @@ begin
   result.Height := tileBmp.Height;
   result.CopyFromBitmap(tileBmp);
   freeAndNil(tileBmp);
+end;
+
+function cropImage(originBitmap : TBitmap; Xpos, Ypos, width, height: integer): TBitmap;
+var
+  iRect : TRect;
+begin
+  iRect.Left := Xpos;
+  iRect.Top := Ypos;
+  iRect.Width := width;
+  iRect.Height := height;
+
+  result := TBitmap.Create;
+  result.Width := Width;
+  result.Height := Height;
+  result.CopyFromBitmap(originBitmap, iRect, 0, 0);
 end;
 
 end.
