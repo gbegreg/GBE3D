@@ -103,7 +103,6 @@ end;
 function DetectionCollisionObstacle(mesh : TMesh; objet : TControl3D):TGBECollisionRetour;
 var
   unObjet3D:TControl3D; // l'objet en cours de rendu
-  DistanceEntreObjets,distanceMinimum: TPoint3D;
   i, j : integer;
   resultat : TGBECollisionRetour;
 begin
@@ -124,18 +123,6 @@ begin
           resultat.objet := unObjet3D;
           break;
         end;
-//
-//        DistanceEntreObjets :=unObjet3D.Position.Point - objet.Position.Point;
-//        distanceMinimum := (SizeOf3D(unObjet3D) + SizeOf3D(objet)) * 0.5; // distanceMinimum : on divise par 2 car le centre de l'objet est la moitié de la taille de l'élément sur les 3 composantes X, Y, Z
-//
-//        // Test si la valeur absolue de position est inférieure à la distanceMinimum calculée sur chacune des composantes
-//        if ((Abs(DistanceEntreObjets.X) < distanceMinimum.X) and (Abs(DistanceEntreObjets.Y) < distanceMinimum.Y) and
-//            (Abs(DistanceEntreObjets.Z) < distanceMinimum.Z)) then
-//        begin
-//          resultat.bool := true;
-//          resultat.objet := unObjet3D;
-//          break;
-//        end;
       end;
     end;
   end;
@@ -158,8 +145,7 @@ end;
 function collisionDummyChilds(aDummy: TDummy; objet3D : TControl3D): TGBECollisionRetour;
 var
   i : integer;
-  resultat, resCollision : TGBECollisionRetour;
-  DistanceEntreObjets,distanceMinimum: TPoint3D;
+  resultat : TGBECollisionRetour;
 begin
   resultat.bool := false;
   resultat.objet := nil;
