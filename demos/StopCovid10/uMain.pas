@@ -176,6 +176,10 @@ type
     procedure tFPSTimer(Sender: TObject);
     procedure Rectangle4Click(Sender: TObject);
     procedure recConfigClick(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
+    procedure joyOrientationMouseMove(Sender: TObject; Shift: TShiftState;
+      X, Y: Single);
   private
     procedure afficherJeu;
     procedure afficherMenu;
@@ -199,18 +203,33 @@ type
     procedure afficherOptions;
     procedure MasquerLayout;
     procedure PlaySound(mediaplayer: TMediaPlayer; son: string);
+    procedure GestionTouches;
+    procedure RightDownEvent(Sender: TObject);
+    procedure RightUpEvent(Sender: TObject);
+    procedure AvancerDownEvent(Sender: TObject);
+    procedure AvancerUpEvent(Sender: TObject);
+    procedure ReculerDownEvent(Sender: TObject);
+    procedure ReculerUpEvent(Sender: TObject);
+    procedure TirDownEvent(Sender: TObject);
+    procedure TirUpEvent(Sender: TObject);
+    procedure LeftUpEvent(Sender: TObject);
+    procedure LeftDownEvent(Sender: TObject);
+    procedure HautDownEvent(Sender: TObject);
+    procedure BasDownEvent(Sender: TObject);
+    procedure BasUpEvent(Sender: TObject);
+    procedure HautUpEvent(Sender: TObject);
     { Déclarations privées }
   public
     { Déclarations publiques }
     scene : TSceneJeu;
-    vitesse, limiteZoneJeuX, limiteZoneJeuY, demiHauteur, niveauVie, hauteurEnnemi : single;
+    vitesse, limiteZoneJeuX, limiteZoneJeuY, demiHauteur, niveauVie, hauteurEnnemi, vitesseTouche : single;
     listeBalles : TTirList;
     nbBalles, nbEnnemisRestant, FPS : integer;
-    toucheAppuyee : boolean;
     heureFin, heureDebut, heureTerminee, meilleurTemps : TTime;
     listeAnimation : TList<TFloatAnimation>;
     optionsJeu : TGBEOptions;
     configFile, repSons : string;
+    toucheDroite, toucheGauche, toucheAvancer, toucheReculer, toucheTir, toucheHaut, toucheBas, tirPossible : boolean;
   end;
 
 var
@@ -244,7 +263,6 @@ begin
     aide: afficherAide;
     options: afficherOptions;
   end;
-  GBEViewport3D1.Repaint;
 end;
 
 procedure TfMain.btnQuitterClick(Sender: TObject);
@@ -296,6 +314,13 @@ begin
   scene := TSceneJeu.menu;
   configFile := TPath.GetHomePath + PathDelim + 'stopcovid10.cfg';
   repSons := '.'+PathDelim+'sons'+PathDelim;
+  toucheDroite := false;
+  toucheGauche := false;
+  toucheAvancer := false;
+  toucheReculer := false;
+  toucheHaut := false;
+  toucheBas := false;
+  toucheTir := false;
   if not(FileExists(configFile)) then begin
     cbFiltre.ItemIndex := 2;
     cbDetailsSol.ItemIndex := 0;
@@ -356,30 +381,33 @@ end;
 
 procedure TfMain.FormKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
 begin
-  if toucheAppuyee then exit;
-
-  toucheAppuyee := true;
-  GBEViewport3D1.BeginUpdate;
   if scene = TSceneJeu.jeu then begin
-    if keyChar = ' ' then tir;
-    if keyChar = 'a' then PlayerPosition.getDummyOrientation.RotationAngle.X := PlayerPosition.getDummyOrientation.RotationAngle.X + 0.5;;
-    if keyChar = 'e' then PlayerPosition.getDummyOrientation.RotationAngle.X := PlayerPosition.getDummyOrientation.RotationAngle.X - 0.5;;
-    if keyChar = 'q' then PlayerPosition.getDummyOrientation.RotationAngle.Y := PlayerPosition.getDummyOrientation.RotationAngle.Y - 0.5;
+    case keyChar of
+      'D','d': RightDownEvent(Sender);
+      'Q','q': LeftDownEvent(Sender);
+      'Z','z': AvancerDownEvent(Sender);
+      'S','s': ReculerDownEvent(Sender);
+      'A','a': HautDownEvent(Sender);
+      'E','e': BasDownEvent(Sender);
+      ' ': TirDownEvent(sender);
+    end;
     if key = 27 then vitesse := 0;
-    if keyChar = 'z' then begin
-      if abs(vitesse) <= vitesseMax then vitesse := vitesse - 0.05
-      else vitesse := -vitesseMax;
-    end;
-    if keyChar = 'd' then PlayerPosition.getDummyOrientation.RotationAngle.Y := PlayerPosition.getDummyOrientation.RotationAngle.Y + 0.5;
-    if keyChar = 's' then begin
-      if vitesse <= vitesseMax then vitesse := vitesse + 0.05
-      else vitesse := vitesseMax;
-    end;
-
-    interactionIHM(GBEViewport3D1);
   end;
-  GBEViewport3D1.EndUpdate;
-  toucheAppuyee := false;
+end;
+
+procedure TfMain.FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+  if scene = TSceneJeu.jeu then begin
+    case keyChar of
+      'D','d': RightUpEvent(Sender);
+      'Q','q': LeftUpEvent(Sender);
+      'Z','z': AvancerUpEvent(Sender);
+      'S','s': ReculerUpEvent(Sender);
+      'A','a': HautUpEvent(Sender);
+      'E','e': BasUpEvent(Sender);
+      ' ': TirUpEvent(sender);
+    end;
+  end;
 end;
 
 procedure TfMain.rJouerClick(Sender: TObject);
@@ -409,6 +437,7 @@ begin
   if not(layJeu.Visible) then begin
     randomize;
     tFPS.Enabled := cbFPS.IsChecked;
+    tirPossible := true;
     lblFPS.Text := '';
     nbBalles := 10;
     niveauVie := 100;
@@ -418,7 +447,6 @@ begin
     hauteurEnnemi := (virus1.Height+2) * 0.5;
     MasquerLayout;
     layJeu.Visible := true;
-    toucheAppuyee := false;
     creerMonde;
     nbEnnemisRestant := dmyEnnemis.ChildrenCount;
     heureFin := incMinute(now,10);
@@ -434,6 +462,7 @@ begin
     MediaPlayerMusique.Play;
   end;
 
+  gestionTouches;
   inc(FPS);
   gestionDeplacementJoueur;
   collisionBonus;
@@ -546,26 +575,29 @@ end;
 procedure TfMain.tir;
 var balle : TTir;
 begin
-  if nbBalles > 0 then begin
-    PlaySound(MediaPlayerSons, repSons+'tir.mp3');
-    balle := TTir.Create;
-    balle.Balle := TSphere.Create(nil);
-    balle.Balle.Parent := sol;
-    balle.VitesseTir := 1.2;
-    balle.DistanceTir := 100;
-    balle.balle.MaterialSource := cmsBalle;
-    balle.Balle.RotationAngle.X := 90;
-    balle.Balle.Width := 0.5;
-    balle.Balle.Depth := 0.5;
-    balle.Balle.height := 0.5;
-    balle.PositionDepart := PlayerPosition.Position.Point;
-    balle.Direction := joyDeplacement.direction * balle.VitesseTir + joyOrientation.direction * balle.VitesseTir;
-    balle.Balle.Position.Point := PlayerPosition.Position.point;
-    listeBalles.Add(balle);
-    dec(nbBalles);
-    lblMunition.Text := 'Munitions : '+ nbBalles.ToString;
-  end else begin
-    PlaySound(MediaPlayerSons, repSons+'Blip.mp3');
+  if tirPossible then begin
+    tirPossible := false;
+    if nbBalles > 0 then begin
+      PlaySound(MediaPlayerSons, repSons+'tir.mp3');
+      balle := TTir.Create;
+      balle.Balle := TSphere.Create(nil);
+      balle.Balle.Parent := sol;
+      balle.VitesseTir := cstVitesseTir;
+      balle.DistanceTir := 100;
+      balle.balle.MaterialSource := cmsBalle;
+      balle.Balle.RotationAngle.X := 90;
+      balle.Balle.Width := 0.5;
+      balle.Balle.Depth := 0.5;
+      balle.Balle.height := 0.5;
+      balle.PositionDepart := PlayerPosition.Position.Point;
+      balle.Direction := joyDeplacement.direction * balle.VitesseTir + joyOrientation.direction * balle.VitesseTir;
+      balle.Balle.Position.Point := PlayerPosition.Position.point;
+      listeBalles.Add(balle);
+      dec(nbBalles);
+      lblMunition.Text := 'Munitions : '+ nbBalles.ToString;
+    end else begin
+      PlaySound(MediaPlayerSons, repSons+'Blip.mp3');
+    end;
   end;
 end;
 
@@ -640,6 +672,11 @@ end;
 procedure TfMain.joyOrientationMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
 begin
   if button = TMouseButton.mbRight then tir;
+end;
+
+procedure TfMain.joyOrientationMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single);
+begin
+  interactionIHM(GBEViewport3D1);
 end;
 
 function TfMain.collisionEnnemi(balle : TSphere): boolean;
@@ -814,6 +851,113 @@ begin
   end else begin
     mediaplayer.Stop;
   end;
+end;
+
+procedure TfMain.GestionTouches;
+begin
+  if toucheDroite then PlayerPosition.getDummyOrientation.RotationAngle.Y := PlayerPosition.getDummyOrientation.RotationAngle.Y + vitesseTouche;
+  if toucheGauche then PlayerPosition.getDummyOrientation.RotationAngle.Y := PlayerPosition.getDummyOrientation.RotationAngle.Y - vitesseTouche;
+  if toucheHaut then PlayerPosition.getDummyOrientation.RotationAngle.X := PlayerPosition.getDummyOrientation.RotationAngle.X + vitesseTouche;
+  if toucheBas then  PlayerPosition.getDummyOrientation.RotationAngle.X := PlayerPosition.getDummyOrientation.RotationAngle.X - vitesseTouche;
+
+  if toucheAvancer then begin
+    if vitesse > vitesseMax then vitesse := vitesse - 0.1
+      else vitesse := -vitesseMax;
+  end;
+  if toucheReculer then begin
+    if vitesse < vitesseMax then vitesse := vitesse + 0.1
+      else vitesse := vitesseMax;
+  end;
+  if toucheTir then tir;
+end;
+
+procedure TfMain.RightDownEvent(Sender: TObject);
+begin
+  toucheGauche := False;
+  if vitesseTouche < maxAccelerationTouche then vitesseTouche := vitesseTouche + accelerationTouche;
+  toucheDroite := True;
+end;
+
+procedure TfMain.LeftDownEvent(Sender: TObject);
+begin
+  toucheDroite := False;
+  if vitesseTouche < maxAccelerationTouche then vitesseTouche := vitesseTouche + accelerationTouche;
+  toucheGauche := True;
+end;
+
+procedure TfMain.AvancerDownEvent(Sender: TObject);
+begin
+  toucheReculer := False;
+  if vitesseTouche < maxAccelerationTouche then vitesseTouche := vitesseTouche + accelerationTouche;
+  toucheAvancer := True;
+end;
+
+procedure TfMain.ReculerDownEvent(Sender: TObject);
+begin
+  toucheAvancer := False;
+  if vitesseTouche < maxAccelerationTouche then vitesseTouche := vitesseTouche + accelerationTouche;
+  toucheReculer := True;
+end;
+
+procedure TfMain.HautDownEvent(Sender: TObject);
+begin
+  toucheBas := False;
+  if vitesseTouche < maxAccelerationTouche then vitesseTouche := vitesseTouche + accelerationTouche;
+  toucheHaut := True;
+end;
+
+procedure TfMain.BasDownEvent(Sender: TObject);
+begin
+  toucheHaut := False;
+  if vitesseTouche < maxAccelerationTouche then vitesseTouche := vitesseTouche + accelerationTouche;
+  toucheBas := True;
+end;
+
+procedure TfMain.TirDownEvent(Sender: TObject);
+begin
+  toucheTir := True;
+end;
+
+procedure TfMain.RightUpEvent(Sender: TObject);
+begin
+  toucheDroite := False;
+  vitesseTouche := 0;
+end;
+
+procedure TfMain.LeftUpEvent(Sender: TObject);
+begin
+  toucheGauche := False;
+  vitesseTouche := 0;
+end;
+
+procedure TfMain.AvancerUpEvent(Sender: TObject);
+begin
+  toucheAvancer := False;
+  vitesseTouche := 0;
+end;
+
+procedure TfMain.ReculerUpEvent(Sender: TObject);
+begin
+  toucheReculer := False;
+  vitesseTouche := 0;
+end;
+
+procedure TfMain.TirUpEvent(Sender: TObject);
+begin
+  toucheTir := False;
+  tirPossible := true;
+end;
+
+procedure TfMain.HautUpEvent(Sender: TObject);
+begin
+  toucheHaut := False;
+  vitesseTouche := 0;
+end;
+
+procedure TfMain.BasUpEvent(Sender: TObject);
+begin
+  toucheBas := False;
+  vitesseTouche := 0;
 end;
 
 end.

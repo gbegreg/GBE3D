@@ -27,10 +27,13 @@ type
 
 const
   TailleJoueur = 2;
-  VitesseMax = 0.6;
+  VitesseMax = 0.8;
   MaxVie = 189;
   MaxEnnemis = 10;
   nbBonus = 9;
+  accelerationTouche = 0.05;
+  maxAccelerationTouche = 2;
+  cstVitesseTir = 1.5;
 
 implementation
 
