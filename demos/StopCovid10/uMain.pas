@@ -671,7 +671,10 @@ end;
 
 procedure TfMain.joyOrientationMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
 begin
-  if button = TMouseButton.mbRight then tir;
+  if button = TMouseButton.mbRight then begin
+    tir;
+    tirPossible := true;
+  end;
 end;
 
 procedure TfMain.joyOrientationMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single);
