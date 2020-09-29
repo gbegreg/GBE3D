@@ -47,6 +47,7 @@ contains
   GBEPlaneExtend in 'GBEPlaneExtend.pas',
   GBECylinderExtend in 'GBECylinderExtend.pas',
   GBECubeExtend in 'GBECubeExtend.pas',
-  uGBEOptionsUtils in 'uGBEOptionsUtils.pas';
+  uGBEOptionsUtils in 'uGBEOptionsUtils.pas',
+  uGBESound in 'uGBESound.pas';
 
 end.

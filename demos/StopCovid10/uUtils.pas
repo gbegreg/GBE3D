@@ -31,7 +31,7 @@ const
   MaxVie = 189;
   MaxEnnemis = 10;
   nbBonus = 9;
-  accelerationTouche = 0.05;
+  accelerationTouche = 0.1;
   maxAccelerationTouche = 2;
   cstVitesseTir = 1.5;
 

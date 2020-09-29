@@ -202,7 +202,6 @@ type
     procedure collisionEnnemis;
     procedure afficherOptions;
     procedure MasquerLayout;
-    procedure PlaySound(mediaplayer: TMediaPlayer; son: string);
     procedure GestionTouches;
     procedure RightDownEvent(Sender: TObject);
     procedure RightUpEvent(Sender: TObject);
@@ -236,7 +235,7 @@ var
   fMain: TfMain;
 
 implementation
-uses uGBEUtils3D, uGBEImageUtils;
+uses uGBEUtils3D, uGBEImageUtils, uGBESound;
 
 {$R *.fmx}
 
@@ -428,7 +427,7 @@ begin
     layIntro.Visible := true;
     aniRotationIntro.Start;
     aniSautIntro.Start;
-    PlaySound(MediaPlayerMusique, repSons+'Deus Ex Tempus.mp3');
+    if cbMusique.IsChecked then PlaySound(MediaPlayerMusique, repSons+'Deus Ex Tempus.mp3');
   end;
 end;
 
@@ -451,16 +450,12 @@ begin
     nbEnnemisRestant := dmyEnnemis.ChildrenCount;
     heureFin := incMinute(now,10);
     heureDebut := now;
-    PlaySound(MediaPlayerMusique, repSons+'Deus Ex Tempus.mp3');
+    if cbMusique.IsChecked then PlaySound(MediaPlayerMusique, repSons+'Deus Ex Tempus.mp3');
     aniRotationIntro.Stop;
     aniSautIntro.Stop;
   end;
 
-  if MediaPlayerMusique.State = TMediaState.Stopped then begin
-    MediaPlayerMusique.Stop;
-    MediaPlayerMusique.CurrentTime := 0;
-    MediaPlayerMusique.Play;
-  end;
+  if cbMusique.IsChecked then RePlaySound(MediaPlayerMusique, repSons+'Deus Ex Tempus.mp3');
 
   gestionTouches;
   inc(FPS);
@@ -469,7 +464,7 @@ begin
   collisionEnnemis;
   afficherNiveauVie;
   if niveauVie <= 0 then begin
-    PlaySound(MediaPlayerSons, repSons+'Powerup3.mp3');
+    if cbMusique.IsChecked then PlaySound(MediaPlayerSons, repSons+'Powerup3.mp3');
     scene := TSceneJeu.gameover;
   end;
   if nbEnnemisRestant = 0  then begin
@@ -518,7 +513,7 @@ begin
   lblMunition.Text := 'Munitions : '+ nbBalles.ToString;
   lblChrono.Text := formatdatetime('nn:ss', heureFin -now);
   if heurefin-now < 0 then begin
-    PlaySound(MediaPlayerSons, repSons+'Powerup3.mp3');
+    if cbMusique.IsChecked then PlaySound(MediaPlayerSons, repSons+'Powerup3.mp3');
     scene := TSceneJeu.gameover;
   end;
 end;
@@ -578,7 +573,7 @@ begin
   if tirPossible then begin
     tirPossible := false;
     if nbBalles > 0 then begin
-      PlaySound(MediaPlayerSons, repSons+'tir.mp3');
+      if cbMusique.IsChecked then PlaySound(MediaPlayerSons, repSons+'tir.mp3');
       balle := TTir.Create;
       balle.Balle := TSphere.Create(nil);
       balle.Balle.Parent := sol;
@@ -596,7 +591,7 @@ begin
       dec(nbBalles);
       lblMunition.Text := 'Munitions : '+ nbBalles.ToString;
     end else begin
-      PlaySound(MediaPlayerSons, repSons+'Blip.mp3');
+      if cbMusique.IsChecked then PlaySound(MediaPlayerSons, repSons+'Blip.mp3');
     end;
   end;
 end;
@@ -692,7 +687,7 @@ begin
   if retour.bool then begin
     result := true;
     (retour.objet as TSphere).Tag := (retour.objet).Tag - 1;
-    PlaySound(MediaPlayerSons, repSons+'Explosion.mp3');
+    if cbMusique.IsChecked then PlaySound(MediaPlayerSons, repSons+'Explosion.mp3');
     case (retour.objet as TSphere).tag of
       2 : (retour.objet as TSphere).MaterialSource := lmsVirusTouche1;
       1 : (retour.objet as TSphere).MaterialSource := lmsVirusTouche2;
@@ -716,7 +711,7 @@ var retour : TGBECollisionRetour;
 begin
   retour := collisionDummyChilds(dmyBonus, PlayerPosition);
   if retour.bool then begin
-     PlaySound(MediaPlayerSons, repSons+'Powerup3.mp3');
+     if cbMusique.IsChecked then PlaySound(MediaPlayerSons, repSons+'Powerup3.mp3');
      retour.objet.visible := false;
      case retour.objet.tag of
        1: niveauVie := 100;
@@ -845,21 +840,10 @@ begin
   layAide.Visible := false;
 end;
 
-procedure TfMain.PlaySound(mediaplayer: TMediaPlayer; son : string);
-begin
-  if cbMusique.IsChecked then begin
-    if mediaplayer.State = TMediaState.Playing then mediaplayer.Stop;
-    mediaplayer.FileName := son;
-    mediaplayer.Play;
-  end else begin
-    mediaplayer.Stop;
-  end;
-end;
-
 procedure TfMain.GestionTouches;
 begin
-  if toucheDroite then PlayerPosition.getDummyOrientation.RotationAngle.Y := PlayerPosition.getDummyOrientation.RotationAngle.Y + vitesseTouche;
-  if toucheGauche then PlayerPosition.getDummyOrientation.RotationAngle.Y := PlayerPosition.getDummyOrientation.RotationAngle.Y - vitesseTouche;
+  if toucheDroite then PlayerPosition.RotationAngle.Y := PlayerPosition.RotationAngle.Y + vitesseTouche;
+  if toucheGauche then PlayerPosition.RotationAngle.Y := PlayerPosition.RotationAngle.Y - vitesseTouche;
   if toucheHaut then PlayerPosition.getDummyOrientation.RotationAngle.X := PlayerPosition.getDummyOrientation.RotationAngle.X + vitesseTouche;
   if toucheBas then  PlayerPosition.getDummyOrientation.RotationAngle.X := PlayerPosition.getDummyOrientation.RotationAngle.X - vitesseTouche;
 
