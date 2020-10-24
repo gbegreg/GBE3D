@@ -101,6 +101,7 @@ begin
   fAcceleration := 0;
 
   useJoystick := false;
+  AutoCapture := true;
   fJoystickType := TGBEJoystickType.jtDeplacement;
 end;
 
