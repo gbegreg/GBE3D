@@ -39,6 +39,7 @@ type
     procedure Resize; override;
     procedure Paint; override;
     procedure initialiserJoystick;
+    function OrientationKeyManagement(rightKey, leftKey, upKey, downKey, goUp, goDown: boolean; sensibility, speed, maxspeed: single): single;
   published
     { Déclarations publiées }
     property PlayerPosition : TGBEPlayerPosition read fPlayerPosition write fPlayerPosition;
@@ -237,6 +238,26 @@ destructor TGBEJoystick.Destroy;
 begin
   DoDeleteChildren;
   inherited;
+end;
+
+function TGBEJoystick.OrientationKeyManagement(rightKey, leftKey, upKey, downKey, goUp, goDown : boolean; sensibility, speed, maxspeed : single):single;
+begin
+  if assigned(PlayerPosition) then begin
+    if rightKey then PlayerPosition.RotationAngle.Y := PlayerPosition.RotationAngle.Y + sensibility;
+    if leftKey then PlayerPosition.RotationAngle.Y := PlayerPosition.RotationAngle.Y - sensibility;
+    if goUp then PlayerPosition.getDummyOrientation.RotationAngle.X := PlayerPosition.getDummyOrientation.RotationAngle.X + sensibility;
+    if goDown then  PlayerPosition.getDummyOrientation.RotationAngle.X := PlayerPosition.getDummyOrientation.RotationAngle.X - sensibility;
+
+    if upKey then begin
+      if abs(speed) < (maxSpeed - sensibility) then speed := speed - sensibility
+      else speed := -(maxSpeed - 2*sensibility);
+    end;
+    if downKey then begin
+      if abs(speed) < (maxSpeed - sensibility) then speed := speed + sensibility
+      else speed := (maxSpeed - 2*sensibility);
+    end;
+  end;
+  result := speed;
 end;
 
 end.

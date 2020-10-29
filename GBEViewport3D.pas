@@ -10,7 +10,8 @@ interface
 
 uses
   System.SysUtils, System.Classes, FMX.Types, FMX.Controls, FMX.Viewport3D, FMX.Graphics, FMX.Types3D,
-  FMX.Controls3D, System.generics.collections, System.Types, System.Math.Vectors, System.UITypes, FMX.Layouts;
+  FMX.Controls3D, System.generics.collections, System.Types, System.Math.Vectors, System.UITypes, FMX.Layouts,
+  System.DateUtils;
 
 type
   THelpOpenControl3D = class(TControl3D);
@@ -18,7 +19,8 @@ type
   TGBEViewport3D = class(TViewport3D)
   private
     { Déclarations privées }
-    FDrawing : boolean;
+    FDrawing, fActiveFPS : boolean;
+    fFPS, fComputeFPS : integer;
     FMyBitmap : TBitmap;
     FMyTexture : TTexture;
     fMyContext: TContext3D;
@@ -27,6 +29,7 @@ type
     { Déclarations protégées }
     FMyRenderingList: TList<TControl3D>; // Liste des objets 3D a afficher
     FMyViewList: TDictionary<TCamera, TBitmap>; // Liste des vues (une vue par caméra)
+    fheureDebut : TTime;
     procedure RebuildRenderingList;
     procedure Paint; override;
     procedure Resize; override;
@@ -43,6 +46,8 @@ type
     property BackgroundColor : cardinal read fBackgroundColor write fBackgroundColor;
   published
     { Déclarations publiées }
+    property ActiveFPS : boolean read fActiveFPS write fActiveFPS;
+    property FPS : integer read fFPS;
   end;
 
 procedure Register;
@@ -60,6 +65,10 @@ begin
   inherited;
   FMyViewList := TDictionary<TCamera,TBitmap>.create;
   BackgroundColor := TAlphaColorRec.Null;
+  fFPS := 0;
+  fComputeFPS := 0;
+  fActiveFPS := false;
+  fHeureDebut := now;
 end;
 
 destructor TGBEViewport3D.Destroy;
@@ -110,6 +119,7 @@ var
   Control : TControl3D;
   New : TMatrix3D;
   theCamera : TCamera;
+  duree : int64;
 begin
   inherited;
   if FDrawing then exit;
@@ -117,6 +127,16 @@ begin
   FDrawing := true;
 
   try
+    if fActiveFPS then begin
+      inc(fComputeFPS);
+      duree := SecondsBetween(now, fHeureDebut);
+      if duree > 0 then begin
+        fFPS := fComputeFPS div duree;
+        fComputeFPS := 0;
+        fHeureDebut := now;
+      end;
+    end;
+
     for theCamera in FMyViewList.Keys do
     begin
 
