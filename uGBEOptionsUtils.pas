@@ -13,7 +13,9 @@ type
     filtre : TMultisample;
 
     procedure sauverConfig(configFile : string);
+    procedure sauverOption(configFile, section, option, value: string);
     procedure chargerConfig(configFile : string);
+    function chargerOption(configFile, section, option: string): string;
   end;
 
 implementation
@@ -30,15 +32,15 @@ begin
     activerMusiques := ficini.ReadBool('OPTIONS','musics',false);
     activerSons := ficini.ReadBool('OPTIONS','sounds',false);
     activerVagues := ficini.ReadBool('OPTIONS','activeWaves',false);
-    activerHerbe := ficini.ReadBool('OPTIONS','activeGrass',false);
-    activerHerbeVent := ficini.ReadBool('OPTIONS','activeGrassWind',false);
-    activerNuages := ficini.ReadBool('OPTIONS','activeClouds',false);
+    activerHerbe := ficini.ReadBool('OPTIONS','activeGrass',true);
+    activerHerbeVent := ficini.ReadBool('OPTIONS','activeGrassWind',true);
+    activerNuages := ficini.ReadBool('OPTIONS','activeClouds',true);
     afficherFPS := ficini.ReadBool('OPTIONS','showFPS',false);
     utilisationTasks := ficini.ReadBool('OPTIONS','useTasks',false);
     pleinEcran := ficini.ReadBool('OPTIONS','fullScreen',false);
     detailsHeightmap := ficini.ReadInteger('OPTIONS','detailsHeightmap',0);
-    nbNuages := ficini.ReadInteger('OPTIONS','nbNuages',0);
-    nbHerbe := ficini.ReadInteger('OPTIONS','nbHerbe',0);
+    nbNuages := ficini.ReadInteger('OPTIONS','nbNuages',15);
+    nbHerbe := ficini.ReadInteger('OPTIONS','nbHerbe',50);
     volumeSons := ficini.ReadFloat('OPTIONS','volumeSons',1);
     volumeMusiques := ficini.ReadFloat('OPTIONS','volumeMusiques',1);
     detailsVagues := ficini.ReadInteger('OPTIONS','detailsWaves',1);
@@ -52,16 +54,16 @@ begin
     afficherLignes := false;
     activerMusiques := false;
     activerSons := false;
-    activerVagues := false;
-    activerHerbe := false;
-    activerHerbeVent := false;
-    activerNuages := false;
+    activerVagues := true;
+    activerHerbe := true;
+    activerHerbeVent := true;
+    activerNuages := true;
     afficherFPS := false;
     utilisationTasks := false;
     pleinEcran := false;
     detailsHeightmap := 0;
-    nbNuages := 0;
-    nbHerbe := 0;
+    nbNuages := 15;
+    nbHerbe := 50;
     volumeSons := 1;
     volumeMusiques := 1;
     detailsVagues := 1;
@@ -95,6 +97,24 @@ begin
     TMultisample.TwoSamples : ficini.WriteInteger('OPTIONS','filtre',1);
     TMultisample.FourSamples : ficini.WriteInteger('OPTIONS','filtre',2);
   end;
+  ficini.Free;
+end;
+
+procedure TGBEOptions.sauverOption(configFile, section, option, value: string);
+var
+  ficini : TInifile;
+begin
+  ficini := TInifile.create(configFile);
+  ficini.writeString(section,option,value);
+  ficini.Free;
+end;
+
+function TGBEOptions.chargerOption(configFile, section, option: string): string;
+var
+  ficini : TInifile;
+begin
+  ficini := TInifile.create(configFile);
+  result := ficini.readString(section,option,'');
   ficini.Free;
 end;
 

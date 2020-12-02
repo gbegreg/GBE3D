@@ -16,7 +16,7 @@ type
     fViewport3D : TViewport3D;
     fCircle, fCircle2 : TCircle;
     fSensitivity: integer;
-    fShowIntegrateJoystick, useJoystick : boolean;
+    fShowIntegrateJoystick, useJoystick, fMouseCapture : boolean;
     fPoint : TPoint3D;
     fJoystickType : TGBEJoystickType;
     Offset: TPointF;       // Décallage entre l'endroit du clic et le centre du cercle du joystick
@@ -25,6 +25,10 @@ type
     function GetDirection: TPoint3D;
     procedure setShowIntegrateJoystick(const Value: boolean);
     procedure setJoystickType(const Value : TGBEJoystickType);
+    function GetDirectionSidewayRight: TPoint3D;
+    function GetDirectionSidewayLeft: TPoint3D;
+    function getMouseCapture: boolean;
+    procedure setMouseCapture(const Value: boolean);
   protected
     { Déclarations protégées }
   public
@@ -39,19 +43,22 @@ type
     procedure Resize; override;
     procedure Paint; override;
     procedure initialiserJoystick;
-    function OrientationKeyManagement(rightKey, leftKey, upKey, downKey, goUp, goDown: boolean; sensibility, speed, maxspeed: single): single;
+    function OrientationKeyManagement(rightKey, leftKey, upKey, downKey, goUp, goDown, sideWayRight, sideWayLeft: boolean; sensibility, speed, maxspeed: single): single;
   published
     { Déclarations publiées }
     property PlayerPosition : TGBEPlayerPosition read fPlayerPosition write fPlayerPosition;
     property JoystickType : TGBEJoystickType read fJoystickType write setJoystickType;
     property angleDeVue : TPointF write SetAngleDeVue; // Propriété de l'angle de vue
     property direction : TPoint3D read GetDirection; // Propriété de la direction
+    property directionSidewayRight : TPoint3D read GetDirectionSidewayRight;
+    property directionSidewayLeft : TPoint3D read GetDirectionSidewayLeft;
     property deplacement : TPoint3D read fPoint write fPoint;
     property HitTest default true;
     property Viewport3D : TViewport3D read fViewport3D write fViewport3D;
     property ShowIntegrateJoystick : boolean read fShowIntegrateJoystick write setShowIntegrateJoystick;
     property Acceleration : single read fAcceleration write fAcceleration;
     property Sensitivity : integer read fSensitivity write fSensitivity;
+    property MouseCapture : boolean read getMouseCapture write setMouseCapture;
   end;
 
 procedure Register;
@@ -102,7 +109,7 @@ begin
   fAcceleration := 0;
 
   useJoystick := false;
-  AutoCapture := true;
+  fMouseCapture := false;
   fJoystickType := TGBEJoystickType.jtDeplacement;
 end;
 
@@ -113,6 +120,37 @@ begin
     if assigned(fPlayerPosition) then
     begin
       result := fPoint * (fPlayerPosition.getPositionDirection.AbsolutePosition - fPlayerPosition.AbsolutePosition).Normalize;
+    end
+    else result := fPoint;
+  end
+  else result := Point3D(0,0,0);
+end;
+
+function TGBEJoystick.GetDirectionSidewayRight: TPoint3D;
+begin
+  if (fJoystickType = jtDeplacement) or (fJoystickType = jtOrientationDeplacement) then
+  begin
+    if assigned(fPlayerPosition) then
+    begin
+      result := fPoint * (fPlayerPosition.getSidewayRightDirection.AbsolutePosition - fPlayerPosition.AbsolutePosition).Normalize;
+    end
+    else result := fPoint;
+  end
+  else result := Point3D(0,0,0);
+end;
+
+function TGBEJoystick.getMouseCapture: boolean;
+begin
+  result := fMouseCapture;
+end;
+
+function TGBEJoystick.GetDirectionSidewayLeft: TPoint3D;
+begin
+  if (fJoystickType = jtDeplacement) or (fJoystickType = jtOrientationDeplacement) then
+  begin
+    if assigned(fPlayerPosition) then
+    begin
+      result := fPoint * (fPlayerPosition.getSidewayLeftDirection.AbsolutePosition - fPlayerPosition.AbsolutePosition).Normalize;
     end
     else result := fPoint;
   end
@@ -191,17 +229,17 @@ end;
 procedure TGBEJoystick.Paint;
 begin
   inherited;
-  if useJoystick then
-  begin
-    if (fJoystickType = jtDeplacement) or (fJoystickType = jtOrientationDeplacement) then
-    begin
-      if assigned(fPlayerPosition) then
-      begin
-        FAcceleration := FAcceleration + ((fCircle.Height - fCircle2.Height)*0.5 + fCircle2.position.Y) / Sensitivity;
-        fPlayerPosition.RotationAngle.Y := fPlayerPosition.RotationAngle.Y - ((fCircle.Width - fCircle2.Width)*0.5 - fCircle2.Position.X) / Sensitivity;
-      end;
-    end;
-  end;
+//  if useJoystick then
+//  begin
+//    if (fJoystickType = jtDeplacement) or (fJoystickType = jtOrientationDeplacement) then
+//    begin
+//      if assigned(fPlayerPosition) then
+//      begin
+////        FAcceleration := FAcceleration + ((fCircle.Height - fCircle2.Height)*0.5 + fCircle2.position.Y) / Sensitivity;
+////        fPlayerPosition.RotationAngle.Y := fPlayerPosition.RotationAngle.Y - ((fCircle.Width - fCircle2.Width)*0.5 - fCircle2.Position.X) / Sensitivity;
+//      end;
+//    end;
+//  end;
 end;
 
 procedure TGBEJoystick.Resize;
@@ -226,6 +264,14 @@ begin
   end;
 end;
 
+procedure TGBEJoystick.setMouseCapture(const Value: boolean);
+begin
+  if value <> fMouseCapture then begin
+    fMouseCapture := value;
+    AutoCapture := value;
+  end;
+end;
+
 procedure TGBEJoystick.setShowIntegrateJoystick(
   const Value: boolean);
 begin
@@ -240,7 +286,7 @@ begin
   inherited;
 end;
 
-function TGBEJoystick.OrientationKeyManagement(rightKey, leftKey, upKey, downKey, goUp, goDown : boolean; sensibility, speed, maxspeed : single):single;
+function TGBEJoystick.OrientationKeyManagement(rightKey, leftKey, upKey, downKey, goUp, goDown, sideWayRight, sideWayLeft : boolean; sensibility, speed, maxspeed : single):single;
 begin
   if assigned(PlayerPosition) then begin
     if rightKey then PlayerPosition.RotationAngle.Y := PlayerPosition.RotationAngle.Y + sensibility;
@@ -248,13 +294,13 @@ begin
     if goUp then PlayerPosition.getDummyOrientation.RotationAngle.X := PlayerPosition.getDummyOrientation.RotationAngle.X + sensibility;
     if goDown then  PlayerPosition.getDummyOrientation.RotationAngle.X := PlayerPosition.getDummyOrientation.RotationAngle.X - sensibility;
 
-    if upKey then begin
-      if abs(speed) < (maxSpeed - sensibility) then speed := speed - sensibility
-      else speed := -(maxSpeed - 2*sensibility);
+    if upKey or sideWayRight or sideWayLeft then begin
+      if speed > -maxSpeed then speed := speed - sensibility
+      else speed := -maxSpeed;
     end;
     if downKey then begin
-      if abs(speed) < (maxSpeed - sensibility) then speed := speed + sensibility
-      else speed := (maxSpeed - 2*sensibility);
+      if speed < maxSpeed then speed := speed + sensibility
+      else speed := maxSpeed;
     end;
   end;
   result := speed;

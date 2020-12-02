@@ -42,6 +42,7 @@ type
     function getBitmapFromView(camera: TCamera):TBitmap;
     procedure DoAddView(camera: TCamera);
     procedure DoRemoveView(camera: TCamera);
+    procedure DoClearListView;
     property MyContext: TContext3D read fMyContext write fMyContext;
     property BackgroundColor : cardinal read fBackgroundColor write fBackgroundColor;
   published
@@ -95,6 +96,11 @@ end;
 procedure TGBEViewport3D.DoRemoveView(camera: TCamera);
 begin
   FMyViewList.Remove(camera);
+end;
+
+procedure TGBEViewport3D.DoClearListView;
+begin
+  FMyViewList.Clear;
 end;
 
 function TGBEViewport3D.getBitmapFromView(camera: TCamera): TBitmap;

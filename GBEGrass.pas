@@ -62,9 +62,9 @@ begin
     TTask.create(procedure
                  begin
                   fTemps := fTemps + 0.1;
-                  valeur := sin(fTemps) * 0.01;
-                  self.Data.VertexBuffer.VerticesPtr[0].X := self.Data.VertexBuffer.VerticesPtr[0].X + valeur;
-                  self.Data.VertexBuffer.VerticesPtr[1].X := self.Data.VertexBuffer.VerticesPtr[1].X + valeur;
+                  valeur := sin(fTemps) * 0.1;
+                  self.Data.VertexBuffer.VerticesPtr[0].X := self.Data.VertexBuffer.VerticesPtr[2].X + valeur;
+                  self.Data.VertexBuffer.VerticesPtr[1].X := self.Data.VertexBuffer.VerticesPtr[3].X + valeur;
                  end).start;
   end;
 end;
