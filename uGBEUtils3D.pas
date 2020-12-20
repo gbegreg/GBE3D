@@ -133,28 +133,29 @@ end;
 //------------------------------------------------------------------------------------------
 procedure interactionIHM(viewport : TViewport3D);
 var
-  i : integer;
+  obj : TFmxObject;
 begin
-  for i := 0 to Viewport.ChildrenCount-1 do
+  for obj in Viewport.Children do
   begin
-    if Viewport.Children[i] is TAnimation then TAnimation(Viewport.Children[i]).ProcessTick(0,0);
+    if obj is TAnimation then TAnimation(obj).ProcessTick(0,0);
   end;
 end;
 
 //------------------------------------------------------------------------------------------
 function collisionDummyChilds(aDummy: TDummy; objet3D : TControl3D): TGBECollisionRetour;
 var
-  i : integer;
+  obj : TFmxObject;
   resultat : TGBECollisionRetour;
 begin
   resultat.bool := false;
   resultat.objet := nil;
-  for I := aDummy.ChildrenCount -1 downto 0 do begin
-    if (aDummy.Children[i] as TControl3D).visible then begin
-      resultat := collisionEntre2Objets(objet3D, (aDummy.Children[i] as TControl3D));
+  for obj in aDummy.Children do begin
+    if (obj as TControl3D).visible then begin
+      resultat := collisionEntre2Objets(objet3D, (obj as TControl3D));
       if resultat.bool then break;
     end;
   end;
+
   result := resultat;
 end;
 
