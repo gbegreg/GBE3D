@@ -48,6 +48,7 @@ contains
   GBECylinderExtend in 'GBECylinderExtend.pas',
   GBECubeExtend in 'GBECubeExtend.pas',
   uGBEOptionsUtils in 'uGBEOptionsUtils.pas',
-  uGBESound in 'uGBESound.pas';
+  uGBESound in 'uGBESound.pas',
+  uGBEPathFinder in 'uGBEPathFinder.pas';
 
 end.
