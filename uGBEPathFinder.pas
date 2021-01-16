@@ -174,7 +174,7 @@ begin
                                    if liste.Items[iNoeud].heuristique < result.heuristique then result := liste.Items[iNoeud]
                                    else begin
                                      if liste.Items[iNoeud].heuristique = result.heuristique then begin
-                                       if liste.Items[iNoeud].coutDeplacement < result.coutDeplacement then liste.Items[iNoeud];
+                                       if liste.Items[iNoeud].coutDeplacement < result.coutDeplacement then result := liste.Items[iNoeud];
                                      end;
                                    end;
                                  end;
@@ -182,7 +182,7 @@ begin
                            if liste.Items[iNoeud].coutDeplacement < result.coutDeplacement then result := liste.Items[iNoeud]
                            else begin
                              if liste.Items[iNoeud].coutDeplacement = result.coutDeplacement then begin
-                               if liste.Items[iNoeud].heuristique < result.heuristique then liste.Items[iNoeud];
+                               if liste.Items[iNoeud].heuristique < result.heuristique then result := liste.Items[iNoeud];
                              end;
                            end;
                          end;
