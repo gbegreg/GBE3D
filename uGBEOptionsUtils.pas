@@ -5,12 +5,14 @@ interface
 uses FMX.Types3D, System.IniFiles, System.SysUtils, System.classes;
 
 type
+  TKeyboardType = (QWERTY, AZERTY);
   TGBEOptions = record
     afficherLignes, activerMusiques, activerSons, activerVagues, activerHerbe, activerHerbeVent,
     activerNuages, afficherFPS, utilisationTasks, pleinEcran : boolean;
     volumeSons, volumeMusiques : single;
     detailsHeightmap, nbNuages, nbHerbe, detailsVagues : integer;
     filtre : TMultisample;
+    keyboard : TKeyboardType;
 
     procedure sauverConfig(configFile : string);
     procedure sauverOption(configFile, section, option, value: string);
@@ -48,6 +50,10 @@ begin
       0: filtre := TMultisample.None;
       1: filtre := TMultisample.TwoSamples;
       2: filtre := TMultisample.FourSamples;
+    end;
+    case ficini.ReadInteger('OPTIONS', 'keyboard', 0) of
+      0: keyboard := TKeyboardType.AZERTY;
+      1: keyboard := TKeyboardType.QWERTY;
     end;
     ficini.Free;
   end else begin
@@ -96,6 +102,10 @@ begin
     TMultisample.None : ficini.WriteInteger('OPTIONS','filtre',0);
     TMultisample.TwoSamples : ficini.WriteInteger('OPTIONS','filtre',1);
     TMultisample.FourSamples : ficini.WriteInteger('OPTIONS','filtre',2);
+  end;
+  case keyboard of
+    QWERTY: ficini.WriteInteger('OPTIONS','keyboard',1);
+    AZERTY: ficini.WriteInteger('OPTIONS','keyboard',0);
   end;
   ficini.Free;
 end;
