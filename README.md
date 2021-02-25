@@ -8,6 +8,8 @@ Développé et testé à partir de la version Rio de Delphi (10.3.3).
 
 L'aide en ligne est disponible sur le wiki : https://github.com/gbegreg/GBE3D/wiki
 
+Deux jeux réalisés avec GBE3D : https://gregory-bersegeay.itch.io/
+
 Si cette suite de composants vous plait, merci de laisser une petite étoile ;)
 
 Grégory Bersegeay http://www.gbesoft.fr <br>
