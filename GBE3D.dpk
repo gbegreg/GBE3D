@@ -49,6 +49,7 @@ contains
   GBECubeExtend in 'GBECubeExtend.pas',
   uGBEOptionsUtils in 'uGBEOptionsUtils.pas',
   uGBESound in 'uGBESound.pas',
-  uGBEPathFinder in 'uGBEPathFinder.pas';
+  uGBEPathFinder in 'uGBEPathFinder.pas',
+  GBETimeLine in 'GBETimeLine.pas';
 
 end.
