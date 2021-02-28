@@ -19,6 +19,7 @@ type
   private
     { Déclarations privées }
     fListeAnimation : TList<TGBEStep>;
+    fLoopSteps : boolean;
     function getCount: integer;
     procedure RunAnimation(indice: integer);
     procedure Finish(Sender: TObject);
@@ -35,6 +36,7 @@ type
   published
     { Déclarations publiées }
     property count : integer read getCount;
+    property loopSteps : boolean read fLoopSteps write fLoopSteps;
   end;
 
 procedure Register;
@@ -62,6 +64,7 @@ constructor TGBETimeline.Create(AOwner: TComponent);
 begin
   inherited;
   fListeAnimation := TList<TGBEStep>.create;
+  fLoopSteps := false;
 end;
 
 destructor TGBETimeline.Destroy;
@@ -97,6 +100,8 @@ begin
     self.Tag := indice;
     self.OnFinish := Finish;
     self.Start;
+  end else begin
+    if fLoopSteps then RunAnimation(0);
   end;
 end;
 
