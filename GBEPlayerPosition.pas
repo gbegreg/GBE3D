@@ -10,7 +10,7 @@ type
   TGBEPlayerPosition = class(TDummy)
   private
     { Déclarations privées }
-    fDummyOrientation, fNextPosition, fPositionDirection, fSidewayRight, fSidewayLeft : TDummy;
+    fDummyOrientation, fNextPosition, fPositionDirection : TDummy;
     fCamera : TCamera;
     fTypePosition : TGBETypePosition;
     fWidth: single;
@@ -34,8 +34,6 @@ type
     function getDummyOrientation: TDummy;
     function getCamera: TCamera;
     function getPositionDirection: TDummy;
-    function getSidewayRightDirection: TDummy;
-    function getSidewayLeftDirection: TDummy;
   published
     { Déclarations publiées }
     property PositionCameraThirdPerson : TPoint3D read getPositionCamera write setPositionCamera;
@@ -91,24 +89,6 @@ begin
   fPositionDirection.position.Y := 0;
   fPositionDirection.position.Z := -0.01;
 
-  fSidewayRight := TDummy.Create(self);
-  fSideWayRight.Locked := true;
-  fSideWayRight.Stored := false;
-  fSideWayRight.Parent := fDummyOrientation;
-  fSidewayRight.position.X := -0.01;
-  fSidewayRight.position.Y := 0;
-  fSidewayRight.position.Z := 0;
-  fSidewayRight.RotationAngle.Y := 90;
-
-  fSidewayLeft := TDummy.Create(self);
-  fSidewayLeft.Locked := true;
-  fSidewayLeft.Stored := false;
-  fSidewayLeft.Parent := fDummyOrientation;
-  fSidewayLeft.position.X := 0.01;
-  fSidewayLeft.position.Y := 0;
-  fSidewayLeft.position.Z := 0;
-  fSidewayLeft.RotationAngle.Y := -90;
-
   fTypePosition := TGBETypePosition.thirdPerson;
 end;
 
@@ -131,16 +111,6 @@ end;
 function TGBEPlayerPosition.getPositionDirection: TDummy;
 begin
   result := fPositionDirection;
-end;
-
-function TGBEPlayerPosition.getSidewayLeftDirection: TDummy;
-begin
-  result := fSidewayLeft;
-end;
-
-function TGBEPlayerPosition.getSidewayRightDirection: TDummy;
-begin
-  result := fSidewayRight;
 end;
 
 function TGBEPlayerPosition.getDummyOrientation: TDummy;

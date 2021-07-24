@@ -128,15 +128,16 @@ end;
 
 function TGBEJoystick.GetDirectionSidewayRight: TPoint3D;
 begin
-  if (fJoystickType = jtDeplacement) or (fJoystickType = jtOrientationDeplacement) then
-  begin
-    if assigned(fPlayerPosition) then
-    begin
-      result := fPoint * (fPlayerPosition.getSidewayRightDirection.AbsolutePosition - fPlayerPosition.AbsolutePosition).Normalize;
-    end
-    else result := fPoint;
-  end
-  else result := Point3D(0,0,0);
+  result := getDirection.Rotate(Point3D(0,1,0), -Pi * 0.5);
+//  if (fJoystickType = jtDeplacement) or (fJoystickType = jtOrientationDeplacement) then
+//  begin
+//    if assigned(fPlayerPosition) then
+//    begin
+//      result := fPoint * (fPlayerPosition.getSidewayRightDirection.AbsolutePosition - fPlayerPosition.AbsolutePosition).Normalize;
+//    end
+//    else result := fPoint;
+//  end
+//  else result := Point3D(0,0,0);
 end;
 
 function TGBEJoystick.getMouseCapture: boolean;
@@ -146,15 +147,16 @@ end;
 
 function TGBEJoystick.GetDirectionSidewayLeft: TPoint3D;
 begin
-  if (fJoystickType = jtDeplacement) or (fJoystickType = jtOrientationDeplacement) then
-  begin
-    if assigned(fPlayerPosition) then
-    begin
-      result := fPoint * (fPlayerPosition.getSidewayLeftDirection.AbsolutePosition - fPlayerPosition.AbsolutePosition).Normalize;
-    end
-    else result := fPoint;
-  end
-  else result := Point3D(0,0,0);
+  result := getDirection.Rotate(Point3D(0,1,0), Pi * 0.5);
+//  if (fJoystickType = jtDeplacement) or (fJoystickType = jtOrientationDeplacement) then
+//  begin
+//    if assigned(fPlayerPosition) then
+//    begin
+//      result := fPoint * (fPlayerPosition.getSidewayLeftDirection.AbsolutePosition - fPlayerPosition.AbsolutePosition).Normalize;
+//    end
+//    else result := fPoint;
+//  end
+//  else result := Point3D(0,0,0);
 end;
 
 procedure TGBEJoystick.initialiserJoystick;
