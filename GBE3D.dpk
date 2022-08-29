@@ -50,6 +50,7 @@ contains
   uGBEOptionsUtils in 'uGBEOptionsUtils.pas',
   uGBESound in 'uGBESound.pas',
   uGBEPathFinder in 'uGBEPathFinder.pas',
-  GBETimeLine in 'GBETimeLine.pas';
+  GBETimeLine in 'GBETimeLine.pas',
+  GBETerrain in 'GBETerrain.pas';
 
 end.

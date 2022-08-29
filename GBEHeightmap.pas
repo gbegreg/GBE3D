@@ -93,7 +93,7 @@ end;
 
 function TGBEHeightmap.GetHeight(P: TPoint3d): single;
 begin
-  result := CalculerHauteur(self, P, self.fMiseAEchelle, fSubdivisionsX);
+  result := CalculerHauteur(self, P, self.fMiseAEchelle, fSubdivisionsX, fSubdivisionsZ);
 end;
 
 function TGBEHeightmap.getTracerLignes: boolean;

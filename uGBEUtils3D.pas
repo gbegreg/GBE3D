@@ -13,7 +13,7 @@ type
   end;
 
   function Barycentre(p1, p2, p3 : TPoint3D; p4 : TPointF):single;
-  function CalculerHauteur(Mesh : TMesh; P: TPoint3D; miseAEchelle : single; sizeMap: integer) : single;
+  function CalculerHauteur(Mesh : TMesh; P: TPoint3D; miseAEchelle : single; subDivX, subDivZ: integer) : single;
   function SizeOf3D(const unObjet3D: TControl3D): TPoint3D;
   function DetectionCollisionObstacle(mesh : TMesh; objet : TControl3D):TGBECollisionRetour;
   procedure interactionIHM(viewport : TViewport3D);
@@ -40,12 +40,12 @@ begin
 end;
 
 //------------------------------------------------------------------------------------------
-function CalculerHauteur(Mesh : TMesh; P: TPoint3D; miseAEchelle : single; sizeMap : integer) : single;
+function CalculerHauteur(Mesh : TMesh; P: TPoint3D; miseAEchelle : single; subDivX, subDivZ : integer) : single;
 var
    grilleX, grilleZ, indiceMaille : integer;
-   xCoord, zCoord, hauteurCalculee, demiHeight, demiDepth, demiWidth, subWidth, subDepth : single;
+   xCoord, zCoord, hauteurCalculee, demiDepth, demiWidth, subWidth, subDepth : single;
 begin
-  if sizemap = 0 then
+  if (subDivX = 0) or (subDivZ = 0) then
   begin
     result := 0;
     exit;
@@ -53,16 +53,15 @@ begin
 
   demiWidth := mesh.width * 0.5;
   demiDepth := mesh.Depth * 0.5;
-  demiHeight := mesh.Height * 0.5;
-  subWidth := mesh.Width / sizemap;
-  subDepth := mesh.Depth / sizemap;
+  subWidth := mesh.Width / subDivX;
+  subDepth := mesh.Depth / subDivZ;
 
   // Détermination des indices permettant d'accéder à la maille en fonction de la position du joueur
   grilleX := trunc((P.X+demiWidth) / subWidth);
   grilleZ := trunc((P.Z+demiDepth) / subDepth);
 
   // Si on est en dehors du mesh, on force (arbitrairement) la hauteur
-  if (grilleX >= SizeMap) or (grilleZ >= SizeMap) or (grilleX < 0) or (grilleZ < 0) then result := 0
+  if (grilleX >= subdivX) or (grilleZ >= subDivZ) or (grilleX < 0) or (grilleZ < 0) then result := 0
   else
   begin
     xCoord := Frac((P.X+demiWidth) / subWidth); // position X dans la maille courante
@@ -70,7 +69,7 @@ begin
 
     // On calcule la hauteur en fonction des 3 sommets du triangle dans lequel se trouve le joueur
     // On détermine dans quel triangle on est
-    indiceMaille := (grilleZ * sizemap * 4) + grilleX *4;
+    indiceMaille := (grilleZ * subDivZ * 4) + grilleX *4;
     if xCoord <= (1 - zCoord) then
     begin
       hauteurCalculee := Barycentre(TPoint3D.Create(0,mesh.data.VertexBuffer.Vertices[indiceMaille].Y,0),
@@ -86,7 +85,7 @@ begin
                                     TPointF.Create(xCoord, zCoord));
     end;
 
-    result := hauteurCalculee*miseAEchelle - demiHeight ; //- mesh.Height;
+    result := hauteurCalculee*miseAEchelle ;//- demiHeight ; //- mesh.Height;
   end;
 end;
 
