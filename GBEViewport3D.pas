@@ -218,7 +218,7 @@ begin
   FMyTexture.Style := [TTextureStyle.RenderTarget];
   FMyTexture.SetSize(Round(Width), Round(Height));
   fMyContext := TContextManager.CreateFromTexture(FMyTexture, TMultisample.FourSamples, True);
-  FMyBitmap := TBitmap.Create(fMyContext.Width, fMyContext.Height);
+  FMyBitmap := TBitmap.Create(trunc(fMyContext.Width), trunc(fMyContext.Height));
 end;
 
 end.
