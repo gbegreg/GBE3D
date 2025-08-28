@@ -1,0 +1,204 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{E28390AF-4C70-48DC-89D1-9313EF1DD8B2}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Clouds\demo_clouds.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Cubemap\demo_cubemap.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Cube\demo_GBECube.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="CylinderExtend\demoCylinderExtend.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="GenererBruit\genererbruit.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Grass\demo_grass.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Heightmap\demo_heightmap.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Island\demo_island.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="JoystickPlayer\demo_joystickplayer.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Mutlitexturing\multitexturing.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="PathFinder\pathfind.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="SphereExtend\demo_GBESphereExtnd.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="StopCovid10\stopCovid10.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Viewport3DView\demo_viewport.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Water\demowater.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="demo_clouds">
+        <MSBuild Projects="Clouds\demo_clouds.dproj"/>
+    </Target>
+    <Target Name="demo_clouds:Clean">
+        <MSBuild Projects="Clouds\demo_clouds.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="demo_clouds:Make">
+        <MSBuild Projects="Clouds\demo_clouds.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="demo_cubemap">
+        <MSBuild Projects="Cubemap\demo_cubemap.dproj"/>
+    </Target>
+    <Target Name="demo_cubemap:Clean">
+        <MSBuild Projects="Cubemap\demo_cubemap.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="demo_cubemap:Make">
+        <MSBuild Projects="Cubemap\demo_cubemap.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="demo_GBECube">
+        <MSBuild Projects="Cube\demo_GBECube.dproj"/>
+    </Target>
+    <Target Name="demo_GBECube:Clean">
+        <MSBuild Projects="Cube\demo_GBECube.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="demo_GBECube:Make">
+        <MSBuild Projects="Cube\demo_GBECube.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="demoCylinderExtend">
+        <MSBuild Projects="CylinderExtend\demoCylinderExtend.dproj"/>
+    </Target>
+    <Target Name="demoCylinderExtend:Clean">
+        <MSBuild Projects="CylinderExtend\demoCylinderExtend.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="demoCylinderExtend:Make">
+        <MSBuild Projects="CylinderExtend\demoCylinderExtend.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="genererbruit">
+        <MSBuild Projects="GenererBruit\genererbruit.dproj"/>
+    </Target>
+    <Target Name="genererbruit:Clean">
+        <MSBuild Projects="GenererBruit\genererbruit.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="genererbruit:Make">
+        <MSBuild Projects="GenererBruit\genererbruit.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="demo_grass">
+        <MSBuild Projects="Grass\demo_grass.dproj"/>
+    </Target>
+    <Target Name="demo_grass:Clean">
+        <MSBuild Projects="Grass\demo_grass.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="demo_grass:Make">
+        <MSBuild Projects="Grass\demo_grass.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="demo_heightmap">
+        <MSBuild Projects="Heightmap\demo_heightmap.dproj"/>
+    </Target>
+    <Target Name="demo_heightmap:Clean">
+        <MSBuild Projects="Heightmap\demo_heightmap.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="demo_heightmap:Make">
+        <MSBuild Projects="Heightmap\demo_heightmap.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="demo_island">
+        <MSBuild Projects="Island\demo_island.dproj"/>
+    </Target>
+    <Target Name="demo_island:Clean">
+        <MSBuild Projects="Island\demo_island.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="demo_island:Make">
+        <MSBuild Projects="Island\demo_island.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="demo_joystickplayer">
+        <MSBuild Projects="JoystickPlayer\demo_joystickplayer.dproj"/>
+    </Target>
+    <Target Name="demo_joystickplayer:Clean">
+        <MSBuild Projects="JoystickPlayer\demo_joystickplayer.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="demo_joystickplayer:Make">
+        <MSBuild Projects="JoystickPlayer\demo_joystickplayer.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="multitexturing">
+        <MSBuild Projects="Mutlitexturing\multitexturing.dproj"/>
+    </Target>
+    <Target Name="multitexturing:Clean">
+        <MSBuild Projects="Mutlitexturing\multitexturing.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="multitexturing:Make">
+        <MSBuild Projects="Mutlitexturing\multitexturing.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="pathfind">
+        <MSBuild Projects="PathFinder\pathfind.dproj"/>
+    </Target>
+    <Target Name="pathfind:Clean">
+        <MSBuild Projects="PathFinder\pathfind.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="pathfind:Make">
+        <MSBuild Projects="PathFinder\pathfind.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="demo_GBESphereExtnd">
+        <MSBuild Projects="SphereExtend\demo_GBESphereExtnd.dproj"/>
+    </Target>
+    <Target Name="demo_GBESphereExtnd:Clean">
+        <MSBuild Projects="SphereExtend\demo_GBESphereExtnd.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="demo_GBESphereExtnd:Make">
+        <MSBuild Projects="SphereExtend\demo_GBESphereExtnd.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="stopCovid10">
+        <MSBuild Projects="StopCovid10\stopCovid10.dproj"/>
+    </Target>
+    <Target Name="stopCovid10:Clean">
+        <MSBuild Projects="StopCovid10\stopCovid10.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="stopCovid10:Make">
+        <MSBuild Projects="StopCovid10\stopCovid10.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="demo_viewport">
+        <MSBuild Projects="Viewport3DView\demo_viewport.dproj"/>
+    </Target>
+    <Target Name="demo_viewport:Clean">
+        <MSBuild Projects="Viewport3DView\demo_viewport.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="demo_viewport:Make">
+        <MSBuild Projects="Viewport3DView\demo_viewport.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="demowater">
+        <MSBuild Projects="Water\demowater.dproj"/>
+    </Target>
+    <Target Name="demowater:Clean">
+        <MSBuild Projects="Water\demowater.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="demowater:Make">
+        <MSBuild Projects="Water\demowater.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="demo_clouds;demo_cubemap;demo_GBECube;demoCylinderExtend;genererbruit;demo_grass;demo_heightmap;demo_island;demo_joystickplayer;multitexturing;pathfind;demo_GBESphereExtnd;stopCovid10;demo_viewport;demowater"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="demo_clouds:Clean;demo_cubemap:Clean;demo_GBECube:Clean;demoCylinderExtend:Clean;genererbruit:Clean;demo_grass:Clean;demo_heightmap:Clean;demo_island:Clean;demo_joystickplayer:Clean;multitexturing:Clean;pathfind:Clean;demo_GBESphereExtnd:Clean;stopCovid10:Clean;demo_viewport:Clean;demowater:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="demo_clouds:Make;demo_cubemap:Make;demo_GBECube:Make;demoCylinderExtend:Make;genererbruit:Make;demo_grass:Make;demo_heightmap:Make;demo_island:Make;demo_joystickplayer:Make;multitexturing:Make;pathfind:Make;demo_GBESphereExtnd:Make;stopCovid10:Make;demo_viewport:Make;demowater:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
